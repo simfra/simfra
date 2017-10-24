@@ -1,0 +1,9 @@
+tmp/*
+log/*
+ssl/*
+scripts/*
+web/vendor/*
+web/cache/*
+web/components/*
+*.lock
+*.phar
