@@ -3,47 +3,44 @@ namespace Core\Http\Request;
 use Core\Objects\App_Array;
 use Core\Objects\App_Object;
 
-class Request {
+class Request
+{
   
-    public $_languages = array();
+    public $languages = array();
     public $query;
-    public $cookie = array(); 
+    public $cookie = array();
 
-    public function __construct()
-    {
-        
-    }
+
     
-    
-    public static function Create()
+    public static function create()
     {
         $new = new static();
         if (!defined('PHP_VERSION_ID')) {
             $version = explode('.', PHP_VERSION);
             define('PHP_VERSION_ID', ($version[0] * 10000 + $version[1] * 100 + $version[2]));
-        }        
+        }
         //echo PHP_VERSION_ID;
-        if(PHP_VERSION_ID>=70000) {
+        if (PHP_VERSION_ID>=70000) {
             //echo "php7";
         }
         $url = urldecode($_SERVER['REQUEST_URI']);
         $query = array();
-        $query['url'] = "/".trim(parse_url($url,PHP_URL_PATH),"/");
-        $t['query'] = parse_url($url,PHP_URL_QUERY);
-        parse_str($t['query'],$t['query']);
+        $query['url'] = "/".trim(parse_url($url, PHP_URL_PATH), "/");
+        $t['query'] = parse_url($url, PHP_URL_QUERY);
+        parse_str($t['query'], $t['query']);
         $query['args'] = new App_Object(array("GET"=>new App_Array($t['query']), "POST"=> new App_Array($_POST)));
         //$query['args']->GET = new App_Array($t['query']);
         //['get'] = new App_Array($t['query']);
         $query['method'] = $_SERVER['REQUEST_METHOD'];
         // echo "<pre>";
         // print_r($_POST);
-        // echo "</pre>";        
+        // echo "</pre>";
         $new->query = new App_Object($query);
         //$new->query->url = new App_Array($temp['url']);
         //$new->query->query = new App_Array($temp['url']);
         //$new->_method = $_SERVER['REQUEST_METHOD'];
         $new->cookie = new App_Array($_COOKIE);
-        $new->_languages = self::getLanguagesFromUser();        
+        $new->languages = self::getLanguagesFromUser();
         return $new;
     }
     
@@ -55,16 +52,16 @@ class Request {
      * Get request method
      * @return string - GET, POST etc
      */
-    public function getMethod() 
+    public function getMethod()
     {
-        return $this->_method;
+        return $this->method;
     }
     
     
     public function getCookie($param = "")
     {
-        if(isset($this->_cookie[$param])) {
-            return $this->_cookie[$param];
+        if (isset($this->cookie[$param])) {
+            return $this->cookie[$param];
         }
     }
     
@@ -75,31 +72,29 @@ class Request {
      */
     public function getLanguages()
     {
-        return $this->_languages;
+        return $this->languages;
     }
     
     /**
      * request::getPreferedLanguage()
      * Get name of prefered language matched to list, if not matched return first language
      * @param string $list if empty return first language, else name of prefered language first occured in array
-     * @return string name of language 
+     * @return string name of language
      */
-    public function getPreferedLanguage($list="")
+    public function getPreferedLanguage($list = "")
     {
-        if(is_array($list)) {
-            foreach($list as $key => $value)
-            {
-                if(isset($this->_languages[$value])) {
+        if (is_array($list)) {
+            foreach ($list as $key => $value) {
+                if (isset($this->languages[$value])) {
                     return $value;
                 }
             }
-        }
-        else{
-            if(isset($this->_languages[$list])) {
+        } else {
+            if (isset($this->languages[$list])) {
                 return $list;
-            }            
+            }
         }
-        return current(array_keys($this->_languages));
+        return current(array_keys($this->languages));
     }
     
     /**
@@ -116,11 +111,14 @@ class Request {
                 $langs = array_combine($parsed_languages[1], $parsed_languages[4]);
                 // set default 1 for any without q factor
                 foreach ($langs as $lang => $val) {
-                    if ($val === '') $langs[$lang] = 1;
+                    if ($val === '') {
+                        $langs[$lang] = 1;
+                    }
                 }
-                arsort($langs, SORT_NUMERIC);
             }
-        }        
+            arsort($langs, SORT_NUMERIC);
+        }
+
         return $langs;
     }
 

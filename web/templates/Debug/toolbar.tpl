@@ -1,9 +1,9 @@
-<div id="debug_content" style="z-index:10000">
-<ul id="debug_content_status" title="HTTP Status" style="width:40px;height: 40px; display: block;line-height: 40px;text-align: center;float: left;font-weight: bold; {if count($dev.errors.warning)>0} background-color: #f48000;{elseif count($dev.errors.notice)>0}background-color: #ffcb2c;{else}background-color: #6ac334;{/if}">
+<div id="debug_content">
+<ul id="debug_content_status" title="HTTP Status" class="{if count($dev.errors.warning)>0} devtoolbar_status_warning{elseif count($dev.errors.notice)>0}devtoolbar_status_notice{else}devtoolbar_status_ok{/if}">
 {$dev.http}
 </ul>
 <ul id="con" title="link {$dev.page.route}" style="color: white;">
-<p><img src="{$path_www}/img/toolbar/menu_34x32.png" />{if $ismobile!=1} {$dev.lang} | {$dev.page.controler}::{$dev.page.method} {/if}</p>
+<p><img src="/img/toolbar/menu_34x32.png" />{if $ismobile!=1} {$dev.lang} | {$dev.page.controler}::{$dev.page.method} {/if}</p>
 {if isset($dev.page) }
     <li style="text-align: center;color: white;">
         <table style="width: 80%;color: white;margin: 0 auto;min-width: 300px; margin-top: 20px;margin-bottom: 20px;">
@@ -32,14 +32,14 @@
 {/if}    
 </ul>
 <ul  title="Script time execution" style="min-width:50px;height: 40px; background-color: #6ac334;display: block;line-height: 40px;text-align: center;float: left;font-weight: bold;padding-left: 10px; padding-right: 10px;">
-<img src="{$path_www}/img/toolbar/run_34x32.png" /> {$dev.time} ms
+<img src="/img/toolbar/run_34x32.png" /> {$dev.time} ms
 </ul>
 {* #9F1FFF *}
-<ul id="ajax" style="background-color: #778c8c;  display: block; float: left; height: 40px; line-height: 40px; min-width: 50px; padding-left: 10px; padding-right: 10px;" title="Ajax Requests">
-<img src="{$path_www}/img/toolbar/ajax_34x32.png" /> 
+<ul id="ajax" title="Ajax Requests">
+<img src="/img/toolbar/ajax_34x32.png" />
 <span id="ajax_request" data-count="0">0</span>
 <li>
-        <table style="color: white;margin: 0 auto;min-width: 300px; margin-top: 20px;margin-bottom: 20px;overflow: auto;padding:10px;" id="ajax_list">
+        <table id="ajax_list">
         <tr><td></td></tr>
         </table>    
 </li>
@@ -48,7 +48,7 @@
 {$dev.memory} kb
 </ul>
 <ul id="database" title="Database queries" >
-<p><img src="{$path_www}/img/toolbar/database_34x32.png" /> {if isset($dev.database)}
+<p><img src="/img/toolbar/database_34x32.png" /> {if isset($dev.database)}
 {$a=(count($dev.database)-1)}{$a}{if $ismobile!=1} ({$dev.database.time}ms){/if}
 {else}
 0 w (0.000 ms)
@@ -71,7 +71,7 @@
 </ul>
 <ul id="files" title="Files used" >
 {$a=(count($dev.files))}
-<p><img src="{$path_www}/img/toolbar/files_34x32.png" /> {$a}</p>
+<p><img src="/img/toolbar/files_34x32.png" /> {$a}</p>
 {if isset($dev.files)}
     <li style="color: white;">
         <table style="color: white;margin: 0 auto;min-width: 300px; margin-top: 20px;margin-bottom: 20px;overflow: auto;padding:10px;">
@@ -82,7 +82,6 @@
         </td>
         </tr> 
         {/foreach}
-       
         </table>
     </li>
 {/if}
@@ -90,7 +89,7 @@
 {$notice=count($dev.errors.notice)}
 {$warning=count($dev.errors.warning)}
 <ul  title="Errors" style="min-width:50px;height: 40px; background-color: #6ac334;display: block;line-height: 40px;text-align: center;float: left;font-weight: bold;padding-left: 10px; padding-right: 10px;">
-<img src="{$path_www}/img/toolbar/settings_34x32.png" /> {if isset($dev.errors)} {$notice+$warning}{else} 0 {/if}
+<img src="/img/toolbar/settings_34x32.png" /> {if isset($dev.errors)} {$notice+$warning}{else} 0 {/if}
 </ul>
 {if count($dev.errors)>0}
 
@@ -113,7 +112,7 @@
     {/if}
 </ul>
 {/if}
-<ul id="template_info" ><img src="{$path_www}/img/toolbar/template_34x32.png" />{if $ismobile!=1}Template Info{/if}
+<ul id="template_info" ><img src="/img/toolbar/template_34x32.png" />{if $ismobile!=1}Template Info{/if}
     <li><div>{$dev_templates}</div></li>
 </ul>
 {literal}
@@ -190,7 +189,6 @@ $( document ).ajaxComplete(function(event,request, settings) {
     $("#ajax_request").attr("data-count",ile);
     $("#ajax_request").text(ile);
     $("<tr data-response='" + ile + "' ><td>"+status+'<span name="hidden_list" style="display:none; min-width: 100px; min-height: 30px;transition: opacity 3s easy-out; opacity: 0;">'+title+'</span></td></tr>').prependTo("table#ajax_list > tbody");
-    //$("#ajax_list > tr:first").before('<tr><td>'+counter+' - '+status+'</td></tr>');    
 });
 
 

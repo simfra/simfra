@@ -1,44 +1,48 @@
 <?php
 namespace Core\Http\Response;
-class Response {
+
+class Response
+{
     const HTTP_OK= 200;
     const HTTP_NOT_FOUND = 404;
-    public $content="";
-    private $_headers = array();
+    private $headers = array();
+    private $kernel = null;
     public $isSend = false;
-    private $_kernel = null;
+    public $content="";
+
     
-    public function __construct(\App\Bootstrap $kernel,  $content="", $response_code="")
+    public function __construct(\Core\Bootstrap $kernel, $content = "", $response_code = "")
     {
-        //echo $content;
-        $this->_kernel = $kernel;
-        if($response_code!="") {
-                    http_response_code($response_code);
+        $this->kernel = $kernel;
+        if ($response_code!="") {
+            http_response_code($response_code);
         }
         //header("Content-Type: text/html");
         $this->addHeader("Content-Type: text/html");
-        //header('Content-Length: '.strlen($content));        
+        //header('Content-Length: '.strlen($content));
 
         $this->content = $content;
                 //ob_end_clean();
         //header('Connection: close');
+        //return $this;
     }
     
     
     private function sendHeaders($headers)
     {
-        if(!headers_sent()) {
-            foreach($headers as $header)
-            {
+        if (!headers_sent()) {
+            foreach ($headers as $header) {
                 header($header);
             }
-        }          
+        }
     }
     
     private function sendContent($content)
     {
-        ob_end_clean();                        
-        echo $content;        
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        echo $content;
     }
     
     public function sendResponse()
@@ -47,24 +51,24 @@ class Response {
         //die();
         //$this->content .="IP:". print_r($app, true);
         // Devtool if Debug mode is enable
-        if($this->_kernel->isBundle("Debug") && $this->_kernel->isProd==0) {
-            try{
-                $this->content = $this->_kernel->getBundle("Debug")->makeDevToolbar($this->content);
-            }
-            catch(\Exception $e)
-            {
+        //echo "aaaa";
+        if ($this->kernel->getContainer()->isBundle("Debug") && !$this->kernel->isProd) {
+            try {
+                $this->content = $this->kernel->getContainer()->getBundle("Debug")->makeDevToolbar($this->content);
+            } catch (\Exception $e) {
                 die("Exception from Debug ".$e->getMessage());
             }
         }
         $this->addHeader('Content-Length: '.strlen($this->content));
-        $this->sendHeaders($this->_headers);
+        $this->sendHeaders($this->headers);
         $this->sendContent($this->content);
-        $this->isSend = true;    
+        $this->isSend = true;
         exit();
     }
     
     public function addHeader($header_to_add)
     {
-        $this->_headers[] = $header_to_add;
+        $this->headers[] = $header_to_add;
+        return $this;
     }
 }

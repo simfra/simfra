@@ -20,6 +20,7 @@
     display: inline-block;
     text-align: center;
     cursor: pointer;
+    margin-left: 10px !important;
 }
 
 #debug_content {
@@ -36,8 +37,37 @@
     bottom: 0px !important;
     height: 40px;
     background-color: #002d4f;
-    color: white;    
-    
+    color: white;
+    z-index:10000;
+}
+#debug_content #ajax {
+    background-color: #778c8c;  display: block; float: left; height: 40px; line-height: 40px; min-width: 50px; padding-left: 10px; padding-right: 10px;
+}
+
+#debug_content #ajax_list {
+    color: white;margin: 0 auto;min-width: 300px; margin-top: 20px;margin-bottom: 20px;overflow: auto;padding:10px;
+}
+
+#debug_content_status {
+    width:40px;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    float: left;
+    font-weight: bold;
+}
+
+.devtoolbar_status_ok {
+    background-color: #6ac334;
+}
+
+.devtoolbar_status_warning {
+    background-color: #f48000;
+}
+
+.devtoolbar_status_notice {
+    background-color: #ffcb2c;
 }
 
 #debug_content a{
@@ -373,9 +403,34 @@
         padding-left: 10px;
         padding-right: 10px;
     }     
-    
+
+         ul#template_info li div ol {
+             width: 300px;
+         }
+
+        ul#template_info li div ol[name=folding]{
+             margin-right: 10px ;
+         }
+
+        ul#template_info li div  ol div {
+            display: none; height: 200px; overflow: auto; background-color: grey;
+        }
     ul#template_info:hover > li{
         display: block !important;
+    }
+
+
+    #devtoolbar_buffer{
+        margin-top: 30px;
+    }
+
+    #devtoolbar_buffer div {
+        display: block;font-family: monospace;padding: 9.5px;margin: 0 0 10px;font-size: 13px;line-height: 1.42857143;color: #333;word-break: break-all;word-wrap: break-word;background-color: #f5f5f5;border: 1px solid #ccc;border-radius: 4px;
+        min-height: 200px;max-height: 600px;overflow: auto; margin: 50px;
+    }
+
+    #devtoolbar_buffer h2{
+        margin-left: 50px;
     }
 
     
