@@ -4,25 +4,29 @@ use Core\Controller;
 use Core\Objects\App_Array;
 use Core\Objects\App_Object;
 use lib\Core\Bundle;
+use Core\Session\Session;
 
 
 class Debug extends Bundle
 {
     private $debug = [];
     public $show_buffer = false;
-
+    const SESSION_NAME = "SIMFRA_DEBUG";
 
     public function __construct()
     {
         //echo "PATH: " . __DIR__ . " " . __CLASS__;
         error_reporting(E_ALL);
+        //session_start(["session_name" => SESSION_NAME]);
+
         ini_set('display_errors', 1);
         $this->debug = ["notice"=>[], "warning"=>[]];
         set_error_handler(array($this, "errorException"));
         register_shutdown_function([$this, "shutDown"]);
         $this->show_buffer = true;
         //var_dump(parent::class);
-        //print_r($this->kernel->bundleList());
+
+        //print_r($_SESSION);
 
         //trigger_error("Error Message", E_USER_WARNING);
     }
@@ -38,10 +42,14 @@ class Debug extends Bundle
     
     public function makeDevToolbar($content, $show_buffer = true)
     {
-echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>";
-        if ($this->getContainer()->isBundle("View")) {
-            $tpl = $this->getContainer()->getBundle("View");
+//echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>";
+
+        //Session::start($this::SESSION_NAME);
+
+        if ($this->isBundle("View")) {
+            $tpl = $this->getBundle("View");
             //$tpl->assign("path_www", URL);
+            //echo "<pre>"; print_r($this->getBundle("Debug")); echo "</pre>";
             //$tpl->assign("ismobile", $this->kernel->isMobile);
             $tpl->assign("dev_templates", $this->parseTemplate($tpl->get_template_vars()));
             if ($this->show_buffer == true && mb_strlen(ob_get_contents()) && $show_buffer === true) {
@@ -76,20 +84,21 @@ echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>"
     {
         $mem = memory_get_usage(false);
         (!@session_id() ? $temp['session']=false : $temp['session'] = @session_id());
+        $kernel = $this->getKernel();
         $temp['memory'] = round($mem/1024);
         $temp['files'] = get_included_files();
-        $temp['lang'] = $this->kernel->page->prefered_lang ;
+        $temp['lang'] = $kernel->page->prefered_lang;
         $temp['page'] = [
-                "controler" => !empty($this->kernel->page) ? $this->kernel->page->struct->get('controller') : "[EMPTY]",
-                "method" => !empty($this->kernel->page) ? $this->kernel->page->struct->get('method') : "[EMPTY]",
-                "route"=> !empty($this->kernel->page->url) ? $this->kernel->page->url : "[URL]",
-                "id" =>  !empty($this->kernel->page) ? $this->kernel->page->id : "[EMPTY]"
+                "controler" => !empty($kernel->page) ? $kernel->page->struct->get('controller') : "[EMPTY]",
+                "method" => !empty($kernel->page) ? $kernel->page->struct->get('method') : "[EMPTY]",
+                "route"=> !empty($kernel->page->url) ? $kernel->page->url : "[URL]",
+                "id" =>  !empty($kernel->page) ? $kernel->page->id : "[EMPTY]"
             ];
-            $temp['class_path'] = "CONT";/*class_exists(PATH_USER_CONTROLLER . $this->kernel->page->struct->get('controller'), false)
+            $temp['class_path'] = class_exists(PATH_USER_CONTROLLER . $kernel->page->struct->get('controller'), false)
                 ? str_replace(array(PATH,".php"), "", (new \ReflectionClass("\App\Controller\\"
-                    . $this->kernel->page->struct->get('controller')))->getFilename())  : "[CONTROLER]";*/
+                    . $kernel->page->struct->get('controller')))->getFilename())  : "[CONTROLER]";
             $temp['http'] = http_response_code();
-            $temp['time'] = round(microtime(true) - $this->kernel->start_time, 3);
+            $temp['time'] = round(microtime(true) - $kernel->start_time, 3);
             $temp['errors'] = $this->debug;
         return $temp;
     }
@@ -152,9 +161,9 @@ echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>"
     
     public function getErrors($type = "")
     {
-        echo "***<pre>";
-        print_r($this->debug);
-        echo "</pre>";
+//        echo "***<pre>";
+//        print_r($this->debug);
+//        echo "</pre>";
         switch ($type) {
             default:
                 return $this->debug;

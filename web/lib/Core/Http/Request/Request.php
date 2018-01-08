@@ -1,7 +1,7 @@
 <?php
 namespace Core\Http\Request;
-use Core\Objects\App_Array;
-use Core\Objects\App_Object;
+use Core\Objects\AppArray;
+use Core\Objects\AppObject;
 
 class Request
 {
@@ -28,18 +28,18 @@ class Request
         $query['url'] = "/".trim(parse_url($url, PHP_URL_PATH), "/");
         $t['query'] = parse_url($url, PHP_URL_QUERY);
         parse_str($t['query'], $t['query']);
-        $query['args'] = new App_Object(array("GET"=>new App_Array($t['query']), "POST"=> new App_Array($_POST)));
+        $query['args'] = new AppObject(array("GET"=>new AppArray($t['query']), "POST"=> new AppArray($_POST)));
         //$query['args']->GET = new App_Array($t['query']);
         //['get'] = new App_Array($t['query']);
         $query['method'] = $_SERVER['REQUEST_METHOD'];
         // echo "<pre>";
         // print_r($_POST);
         // echo "</pre>";
-        $new->query = new App_Object($query);
+        $new->query = new AppObject($query);
         //$new->query->url = new App_Array($temp['url']);
         //$new->query->query = new App_Array($temp['url']);
         //$new->_method = $_SERVER['REQUEST_METHOD'];
-        $new->cookie = new App_Array($_COOKIE);
+        $new->cookie = new AppArray($_COOKIE);
         $new->languages = self::getLanguagesFromUser();
         return $new;
     }

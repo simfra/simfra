@@ -17,15 +17,25 @@ class Model
         return $this->kernel;
     }
 
+    public function getBundle($bundle)
+    {
+        return $this->getContainer()->getBundle($bundle);
+    }
+
+    public function getContainer()
+    {
+        return $this->getKernel()->getContainer();
+    }
+
     public function render(string $template)
     {
         //$this->kernel->getBundle("Config");
-        $this->getKernel()->getTpl()->fetch($template);
+        $this->getBundle("View")->fetch($template);
     }
 
     public function getService($service_name)
     {
-        return $this->getKernel()->getService($service_name);
+        return $this->getContainer()->getService($service_name);
     }
 
 

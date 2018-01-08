@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
-class front extends \Core\Controller{
+
+class front extends \Core\Controller
+{
     
     public function index()
     {

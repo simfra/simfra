@@ -7,17 +7,19 @@ class Response
     const HTTP_NOT_FOUND = 404;
     private $headers = array();
     private $kernel = null;
+    private $useDebug = true;
     public $isSend = false;
     public $content="";
 
     
-    public function __construct(\Core\Bootstrap $kernel, $content = "", $response_code = "")
+    public function __construct(\Core\Bootstrap $kernel, $content = "", $response_code = "", $useDebug = true)
     {
         $this->kernel = $kernel;
         if ($response_code!="") {
             http_response_code($response_code);
         }
         //header("Content-Type: text/html");
+        $this->useDebug = $useDebug;
         $this->addHeader("Content-Type: text/html");
         //header('Content-Length: '.strlen($content));
 
@@ -52,7 +54,7 @@ class Response
         //$this->content .="IP:". print_r($app, true);
         // Devtool if Debug mode is enable
         //echo "aaaa";
-        if ($this->kernel->getContainer()->isBundle("Debug") && !$this->kernel->isProd) {
+        if ($this->useDebug === true && $this->kernel->getContainer()->isBundle("Debug") && !$this->kernel->isProd) {
             try {
                 $this->content = $this->kernel->getContainer()->getBundle("Debug")->makeDevToolbar($this->content);
             } catch (\Exception $e) {

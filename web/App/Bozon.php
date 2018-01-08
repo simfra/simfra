@@ -12,8 +12,8 @@ namespace App;
 class Bozon
 {
 
-    public function __construct()//\App\Database\Database $baza)
+    public function __construct(\App\Database\Database $baza)
     {
-echo "BOZON";
+//echo "BOZON";
     }
 }

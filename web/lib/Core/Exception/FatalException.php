@@ -1,12 +1,14 @@
 <?php
 namespace Core\Exception;
-class FatalException extends \Exception{
+
+class FatalException extends \Exception
+{
     protected $Title;
     protected $Name;
     protected $Debug;
     protected $Class;
     protected $Function;
-    public function __construct($Title, $Message,$Code=0, $Previous = null)
+    public function __construct($Title, $Message, $Code = 0, $Previous = null)
     {
         $this->Title = $Title;
         $this->Name = __CLASS__;
@@ -38,5 +40,4 @@ class FatalException extends \Exception{
     {
         return $this->Function;
     }
-    
-} 
+}

@@ -4,7 +4,8 @@ namespace lib\Core;
 
 abstract class Bundle
 {
-    public $container = null;
+    private $container = null;
+    private $kernel = null;
 
     public function setContainer(Container $container)
     {
@@ -13,7 +14,12 @@ abstract class Bundle
 
     public function getKernel()
     {
-        return "lllsdasdas";// $this->kernel;
+        return $this->kernel;
+    }
+
+    public function bootUp(\Core\Bootstrap $kernel)
+    {
+        $this->kernel = $kernel;
     }
 
     public function getContainer()
@@ -21,10 +27,35 @@ abstract class Bundle
         return $this->container;
     }
 
+    public function getBundle($bundle)
+    {
+        return $this->container->getBundle($bundle);
+    }
+
+    public function isBundle($bundle)
+    {
+        return $this->container->isBundle($bundle);
+    }
+
     public function defaultConfig($config)
     {
+        //$reflection = new \ReflectionClass($this);
         foreach ($config as $key => $value) {
-            $this->$key = $value;
+            try {
+                $prop = new \ReflectionProperty(get_class($this), $key);
+                $prop->setAccessible(true);
+                $prop->setValue($this, $value);
+            } catch (\Exception $e) {
+                $e = null;
+            }
+//            if (isset($this->$key)) {
+//                $property = $reflection->getProperty($key);
+//                if ($property instanceof ReflectionProperty) {
+//                    $property->setValue($this, $value);
+//                }
+//            } else {
+//                $this->$key = $value;
+//            }
         }
     }
 }

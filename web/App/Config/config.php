@@ -1,9 +1,10 @@
+
 <?php
 define("PATH", realpath($_SERVER['DOCUMENT_ROOT'] . "/../") . "/");
 define("PATH_USER_CONTROLLER", "\App\Controller\\");
 return [
     "bundles" => [
-            "database" => [
+            "Database" => [
                 "host" => "localhost",
                 "port" => "5432"
             ],
@@ -13,6 +14,10 @@ return [
             ],
             "View" => [
                 "templateDir" => "asdas"
-            ]
+            ],
+            "Baza2" => [
+                "host" => "localhost2",
+                "port" => "5432a"
+            ],
     ]
 ];

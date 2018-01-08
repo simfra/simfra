@@ -5,12 +5,14 @@ namespace App\Database;
 //use \Core\Interfaces\test_interface;
 //use App\Bundle;
 use \Core\Exception\FatalException;
-class Database
+use lib\Core\Bundle;
+
+class Database extends Bundle
 {
     private $_kernel = null;
     private $_connection = null;
-    private $_host = "93.159.184.104";
-    private $_port = "5432";
+    private $host = "93.159.184.104";
+    private $port = "5432";
     private $_dbname = "spedgo_dev";
     private $_user = "postgres";
     private $_password = "SamSam12345";
@@ -19,7 +21,7 @@ class Database
     private function connect()
     {
 
-        $this->_connection = pg_connect("host=$this->_host port=$this->_port dbname=$this->_dbname user=$this->_user password=$this->_password options='--application_name=$this->_program_name'");
+        $this->_connection = pg_connect("host=$this->host port=$this->port dbname=$this->_dbname user=$this->_user password=$this->_password options='--application_name=$this->_program_name'");
         if ($this->_connection) {
             return;
         } else {
@@ -28,9 +30,11 @@ class Database
     }
 
 
-    function __construct(\App\Bootstrap $kernel)
+    function __construct(\Core\Debug\Debug $kernel = null)
     {
-        $this->_kernel = $kernel;
+        //echo "Database ";
+        //die("Database " . print_r($kernel),true);
+        //$this->_kernel = $kernel;
     }
 
     public function __toString()

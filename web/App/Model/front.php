@@ -12,9 +12,11 @@ class front extends \Core\Model
     public function index()
     {
         //echo "<pre>";
-        //$this->getService("App\Properties\Properties");
+        //$this->getService("App\Database\Database");
         echo "<pre>";
+        //print_r($this->getBundle("App\Properties\Properties"));
         //print_r($this->getKernel()->bundleList());
+        //print_r($this->getBundle("Database"));
         //print_r($this->getKernel()->listServices());
         echo "</pre>";
         //echo "aaa";

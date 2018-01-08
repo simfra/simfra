@@ -3,8 +3,9 @@
 namespace Core\Route;
 
 use Core\Exception\FatalException;
-use Core\Objects\App_Array;
-use Core\Objects\App_Object;
+use Core\Http\Request\Request;
+use Core\Objects\AppArray;
+use Core\Objects\AppObject;
 
 /**
  * Route
@@ -88,10 +89,10 @@ class Route
                 $temp = explode(":", $t1[1]);
             }
 
-            if (isset($temp[0]) && in_array($temp[0], $this->_modifiers)) {// znany jest modyfikator
+            if (isset($temp[0]) && in_array($temp[0], $this->modifiers)) {// znany jest modyfikator
                 $ret['modifier'] = $temp[0];
                 if (isset($temp[1])) { // jest parametr do modyfikatora
-                    $parametr = $temp[1];
+                    //$parametr = $temp[1];
                     $ret['parametr'] = $temp[1];
                 } else {
                     $ret['parametr'] = "";
@@ -110,7 +111,7 @@ class Route
      * @param mixed $start - character/string as a starting point of cut (not included in returned part)
      * @param mixed $end - character/string as a ending point of cut (not included in returned part)
      * @param bool $back - default=false, if true and starting point is in source string, will return source string, if false will return empty string
-     * @return depending $back param - will return empty string or cutted string
+     * @return mixed $back param - will return empty string or cutted string
      */
     private function getStringBetween($string, $start, $end, $back = false)
     {
@@ -193,20 +194,19 @@ class Route
      * Extracts first element from array of urls (from method checkUrl)
      * @param mixed $urls - list of urls
      * @param string $type - desribes type of element should be returned
-     * @return array - if contains this type of url or false if not
+     * @return mixed - if contains this type of url or false if not
      */
     private function extractPage($urls, $type = "exact")
     {
         foreach ($urls as $page) {
             if (($type == "exact" && trim($page['exact']) != "") || ($type == "cond" && trim($page['cond']) != "")) {
                 //die("1");
-                $strona['struct'] = new App_Array($this->page_struct[$page['id']]);
+                $strona['struct'] = new AppArray($this->page_struct[$page['id']]);
                 $strona['lang'] = reset($page['lang']); // first language of selected page
                 $strona['url'] = $page['url'];
-                return new App_Object($strona);
+                return new AppObject($strona);
             }
         }
-        //die("@");
         return false;
     }
 
@@ -217,7 +217,7 @@ class Route
      * @param mixed $request - object \Core\Http\Request\Request
      * @return array of matched page if found, or false if not. Throw Exception when 2 or more url matched requested url
      */
-    public function checkURL(\Core\Http\Request\Request $request)
+    public function checkURL(Request $request)
     {
 //       echo "<pre>";
 //        print_r($request);

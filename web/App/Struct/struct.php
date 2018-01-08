@@ -1,6 +1,6 @@
-<?php 
+<?php
 $page = array (
-  0 => 
+  0 =>
   array (
     'name' => 'start',
     'typ' => 'content',

@@ -1,7 +1,6 @@
 <?php
 namespace Core;
 
-use \Core\Bootstrap;
 use \Core\Exception\FatalException;
 use Core\Http\Response\Response;
 
