@@ -15,6 +15,7 @@ use lib\Core\Container;
 class Bootstrap
 {
     public $start_time = null;
+    private $application_name = null;
     //public $controller_name = null;
     //public $method = null;
     //public $prefix = null;
@@ -33,12 +34,13 @@ class Bootstrap
      * @param string $application
      * @throws FatalException
      */
-    public function __construct($application = "")
+    public function __construct($application_name = "", $application = '')
     {
         $this->start_time = microtime(true);
-        set_exception_handler(array($this, "handleException"));
         $this->container = new Container();
+        set_exception_handler(array($this, "handleException"));
         //$this->container->addBundle($this); // add this kernel to bundle
+        $this->application_name = $application_name;
         if ("prod" === $application) {
             $this->isProd = true;
         } elseif ("dev" === $application) {
@@ -62,16 +64,22 @@ class Bootstrap
         return $this->container;
     }
 
+    public function getApplicationPath()
+    {
+        return $this->application_name;
+    }
 
     public function bootUp()
     {
-        $this->config = ($this->getContainer()->addBundle(new Config))->getConfig();
+        $this->config = ($this->getContainer()->addBundle(new Config))->getConfig($this->application_name);
+        //$this->getContainer()->addBundle(new Config);
+        //$this->config = $
         $this->getContainer()->addBundle(new View);
         $this->getContainer()->addBundle(new Database);
         $this->getContainer()->addBundle(new Database, "Baza2");
        //$this->getBundle("View")->setContainer("asdas");
         echo "<pre>";
-        print_r($this->config);//getContainer()->listBundles());
+        //print_r($this->config);//getContainer()->listBundles());
         echo "</pre>";
         if ($this->isProd === true) {
             set_error_handler(function () {
@@ -126,7 +134,9 @@ class Bootstrap
     // @TODO: Refactor this
     public function handleException($exception)
     {
-        print_r($exception);
+        //echo "<pre>";
+        //print_r($exception);
+        //echo "</pre>";
         $temporary= new AppArray([
                 "controller" => method_exists($exception, "getName") ? $exception->getName(): "Unknown name",
                 "method" => __FUNCTION__,
@@ -173,6 +183,7 @@ class Bootstrap
             $response = (new Response($this, $content, 500))->addHeader("aaaa");
         }
         //$response->sendResponse();
+       // echo $content;
         return $response;// new \Core\Http\Response\Response($this, $content);
     }
     

@@ -6,6 +6,7 @@ abstract class Bundle
 {
     private $container = null;
     private $kernel = null;
+    private $booted = false;
 
     public function setContainer(Container $container)
     {
@@ -20,6 +21,7 @@ abstract class Bundle
     public function bootUp(\Core\Bootstrap $kernel)
     {
         $this->kernel = $kernel;
+        $this->booted = true;
     }
 
     public function getContainer()
@@ -34,7 +36,11 @@ abstract class Bundle
 
     public function isBundle($bundle)
     {
-        return $this->container->isBundle($bundle);
+        if ($this->booted) {
+            return $this->container->isBundle($bundle);
+        } else {
+            return false;
+        }
     }
 
     public function defaultConfig($config)

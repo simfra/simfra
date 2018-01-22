@@ -5,28 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0fe334da-9b30-428f-bad9-38acb5f1466b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/web/App/Bozon.php" afterPath="$PROJECT_DIR$/web/App/Bozon.php" />
-      <change beforePath="$PROJECT_DIR$/web/App/Config/config.php" afterPath="$PROJECT_DIR$/web/App/Config/config.php" />
-      <change beforePath="$PROJECT_DIR$/web/App/Controller/front.php" afterPath="$PROJECT_DIR$/web/App/Controller/front.php" />
-      <change beforePath="$PROJECT_DIR$/web/App/Model/front.php" afterPath="$PROJECT_DIR$/web/App/Model/front.php" />
-      <change beforePath="$PROJECT_DIR$/web/App/Properties/Properties.php" afterPath="$PROJECT_DIR$/web/App/Properties/Properties.php" />
-      <change beforePath="$PROJECT_DIR$/web/App/Struct/struct.php" afterPath="$PROJECT_DIR$/web/App/Struct/struct.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/App/Database/Database.php" afterPath="$PROJECT_DIR$/web/lib/App/Database/Database.php" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/simfra.iml" afterPath="$PROJECT_DIR$/.idea/simfra.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/web/App/Bozon.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Config/config.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Controller/front.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Model/front.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Properties/Properties.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Resources/autoload.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/web/App/Struct/struct.php" afterPath="" />
       <change beforePath="$PROJECT_DIR$/web/lib/Core/Bootstrap.php" afterPath="$PROJECT_DIR$/web/lib/Core/Bootstrap.php" />
       <change beforePath="$PROJECT_DIR$/web/lib/Core/Bundle.php" afterPath="$PROJECT_DIR$/web/lib/Core/Bundle.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Container.php" afterPath="$PROJECT_DIR$/web/lib/Core/Container.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Controller.php" afterPath="$PROJECT_DIR$/web/lib/Core/Controller.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Debug/Debug.php" afterPath="$PROJECT_DIR$/web/lib/Core/Debug/Debug.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Exception/FatalException.php" afterPath="$PROJECT_DIR$/web/lib/Core/Exception/FatalException.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Http/Request/Request.php" afterPath="$PROJECT_DIR$/web/lib/Core/Http/Request/Request.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Http/Response/Response.php" afterPath="$PROJECT_DIR$/web/lib/Core/Http/Response/Response.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Interfaces/ArrayMethod.php" afterPath="$PROJECT_DIR$/web/lib/Core/Interfaces/ArrayMethod.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Interfaces/ObjectMethod.php" afterPath="$PROJECT_DIR$/web/lib/Core/Interfaces/ObjectMethod.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Model.php" afterPath="$PROJECT_DIR$/web/lib/Core/Model.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Objects/App_Array.php" afterPath="$PROJECT_DIR$/web/lib/Core/Objects/AppArray.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Objects/App_Object.php" afterPath="$PROJECT_DIR$/web/lib/Core/Objects/AppObject.php" />
-      <change beforePath="$PROJECT_DIR$/web/lib/Core/Route/Route.php" afterPath="$PROJECT_DIR$/web/lib/Core/Route/Route.php" />
+      <change beforePath="$PROJECT_DIR$/web/lib/Core/Config/Config.php" afterPath="$PROJECT_DIR$/web/lib/Core/Config/Config.php" />
+      <change beforePath="$PROJECT_DIR$/web/public_html/index.php" afterPath="$PROJECT_DIR$/web/public_html/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,28 +50,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Bootstrap.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Bootstrap.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/lib/Core/Bootstrap.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="987">
-              <caret line="137" column="36" lean-forward="true" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
+            <state relative-caret-position="462">
+              <caret line="112" column="4" lean-forward="true" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Route.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/lib/Core/Route/Route.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-357">
-              <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-              <folding />
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="126">
+                <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FatalException.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/lib/Core/Exception/FatalException.php">
+      <file leaf-file-name="struct.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/App/my_app/Struct/struct.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -87,51 +83,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Properties.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/App/Properties/Properties.php">
+      <file leaf-file-name="Response.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/Core/Http/Response/Response.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="663">
+              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bozon.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/App/Bozon.php">
+      <file leaf-file-name="autoload.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/Resources/autoload.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="63">
+              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="front.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php">
+      <file leaf-file-name="Route.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/Core/Route/Route.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+            <state relative-caret-position="4893">
+              <caret line="236" column="35" lean-forward="false" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bundle.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/lib/Core/Bundle.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/public_html/admin/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="front.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/App/Model/front.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+            <state relative-caret-position="210">
+              <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -141,7 +127,17 @@
         <entry file="file://$PROJECT_DIR$/web/public_html/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
-              <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+              <caret line="6" column="37" lean-forward="false" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bundle.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/lib/Core/Bundle.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="41" column="25" lean-forward="false" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -150,11 +146,9 @@
       <file leaf-file-name="Config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/lib/Core/Config/Config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="861">
-              <caret line="42" column="120" lean-forward="false" selection-start-line="42" selection-start-column="120" selection-end-line="42" selection-end-column="120" />
-              <folding>
-                <element signature="e#32#67#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="409">
+              <caret line="43" column="56" lean-forward="true" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -215,17 +209,20 @@
         <option value="$PROJECT_DIR$/web/App/Struct/struct.php" />
         <option value="$PROJECT_DIR$/web/lib/Core/View.php" />
         <option value="$PROJECT_DIR$/web/App/Config/config.php" />
-        <option value="$PROJECT_DIR$/web/lib/Core/Config/Config.php" />
-        <option value="$PROJECT_DIR$/web/lib/Core/Bundle.php" />
         <option value="$PROJECT_DIR$/web/lib/Core/Model.php" />
         <option value="$PROJECT_DIR$/web/App/Properties/Properties.php" />
         <option value="$PROJECT_DIR$/web/App/Bozon.php" />
         <option value="$PROJECT_DIR$/web/App/Model/front.php" />
         <option value="$PROJECT_DIR$/web/lib/Core/Debug/Debug.php" />
         <option value="$PROJECT_DIR$/web/App/Resources/autoload.php" />
-        <option value="$PROJECT_DIR$/web/lib/Core/Bootstrap.php" />
-        <option value="$PROJECT_DIR$/web/public_html/index.php" />
         <option value="$PROJECT_DIR$/web/lib/Core/Exception/FatalException.php" />
+        <option value="$PROJECT_DIR$/web/lib/Resources/autoload.php" />
+        <option value="$PROJECT_DIR$/web/public_html/admin/index.php" />
+        <option value="$PROJECT_DIR$/web/public_html/index.php" />
+        <option value="$PROJECT_DIR$/web/lib/Core/Config/Config.php" />
+        <option value="$PROJECT_DIR$/web/lib/Core/Bundle.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/web/lib/Core/Bootstrap.php" />
       </list>
     </option>
   </component>
@@ -408,41 +405,14 @@
               <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Config" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="my_app" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
               <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controller" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Model" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Properties" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Resources" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="App" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="my_app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Struct" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -471,44 +441,7 @@
               <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="lib" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Core" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Config" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lib" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Core" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Debug" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lib" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Core" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Exception" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lib" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Core" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Route" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public_html" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simfra" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="web" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public_html" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="simfra" type="b2602c69:ProjectViewProjectNode" />
@@ -541,12 +474,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="php.test.frameworks.configurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.php.tools.quality.phpcs.PhpCSConfigurable" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -617,11 +550,19 @@
       <workItem from="1511569674913" duration="696000" />
       <workItem from="1515264113396" duration="7237000" />
       <workItem from="1515366271317" duration="1444000" />
+      <workItem from="1515450162189" duration="6840000" />
+      <workItem from="1515527448849" duration="12338000" />
+      <workItem from="1515968881852" duration="93000" />
+      <workItem from="1516014988173" duration="1325000" />
+      <workItem from="1516220236051" duration="26000" />
+      <workItem from="1516624321546" duration="408000" />
+      <workItem from="1516624742526" duration="611000" />
+      <workItem from="1516626200681" duration="4958000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211755000" />
+    <option name="totallyTimeSpent" value="238354000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -634,9 +575,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1020" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19414894" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20904255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33816963" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -691,46 +631,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Bootstrap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="45" column="38" lean-forward="false" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Config/Config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="28" column="84" lean-forward="true" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
-          <folding>
-            <element signature="e#32#67#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Debug/Debug.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/public_html/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/App/Form/Form.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1869">
@@ -742,9 +643,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
           <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding>
-            <element signature="e#22#42#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -752,18 +650,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="5" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/Core/Model.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
@@ -783,9 +673,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
           <caret line="28" column="84" lean-forward="true" selection-start-line="28" selection-start-column="84" selection-end-line="28" selection-end-column="84" />
-          <folding>
-            <element signature="e#32#67#0#PHP" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -807,18 +695,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/App/Database/Database.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -841,14 +721,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/App/Form/Form.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1869">
@@ -894,26 +767,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/Core/Objects/App_Array.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/App/DependencyInjector.php" />
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Http/Request/Request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/Exception/fatal.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="15" column="79" lean-forward="false" selection-start-line="15" selection-start-column="79" selection-end-line="15" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Http/Response/Response.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -928,14 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="40" lean-forward="true" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -943,13 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Struct/struct.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -961,81 +803,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Resources/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/Core/View.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-          <folding>
-            <element signature="e#22#42#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Config/Config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="42" column="120" lean-forward="false" selection-start-line="42" selection-start-column="120" selection-end-line="42" selection-end-column="120" />
-          <folding>
-            <element signature="e#32#67#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Bundle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="5" lean-forward="false" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Bozon.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Properties/Properties.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/public_html/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/Bozon.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Properties/Properties.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Model/front.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Struct/struct.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Resources/autoload.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Config/config.php" />
+    <entry file="file://$PROJECT_DIR$/web/App/Controller/front.php" />
     <entry file="file://$PROJECT_DIR$/web/lib/Core/Exception/FatalException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1044,18 +825,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/lib/Core/Bootstrap.php">
+    <entry file="file://$PROJECT_DIR$/web/lib/Core/Http/Request/Request.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="137" column="36" lean-forward="true" selection-start-line="137" selection-start-column="36" selection-end-line="137" selection-end-column="36" />
+        <state relative-caret-position="231">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/public_html/admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/public_html/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="37" lean-forward="false" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/Resources/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/Core/Config/Config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="43" column="56" lean-forward="true" selection-start-line="43" selection-start-column="56" selection-end-line="43" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/Core/Http/Response/Response.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/Core/Bundle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="41" column="25" lean-forward="false" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/App/my_app/Struct/struct.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="126">
+            <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/lib/Core/Route/Route.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357">
-          <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        <state relative-caret-position="4893">
+          <caret line="236" column="35" lean-forward="false" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/lib/Core/Bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="112" column="4" lean-forward="true" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="4" />
           <folding />
         </state>
       </provider>

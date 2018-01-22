@@ -8,34 +8,48 @@ use lib\Core\Bundle;
 
 class Config extends Bundle
 {
-    private $_config;
+    private $config = null;
     
     public function __construct()
     {
+
         //echo "construct";
 //        if($settings != "") {
 //            $this->_config = $settings;
 //        }
-        $this->loadConfigFromIni();
+        //$this->loadConfigFromIni();
         return $this;
     }
-    
+
+
+
     public function get($variable)
     {
-        if (isset($this->_config[$variable])) {
-            return $this->_config[$variable];
+        if (isset($this->config[$variable])) {
+            return $this->config[$variable];
         }
     }
 
-    public function getConfig()
+    public function getConfig($application_name)
     {
-        return $this->_config;
+        //($this->config) ? return $this->config : return
+        if ($this->config!=null) {
+            return $this->config;
+        } else {
+            return $this->loadConfigFromIni($application_name);
+        }
     }
 
 
-    public function loadConfigFromIni()
+    public function loadConfigFromIni($application_name)
     {
-        $plik = $_SERVER['DOCUMENT_ROOT'] ."/../App/Config/config.php";
+       // echo $_SERVER['DOCUMENT_ROOT'] . "<br />\n";//$this->getKernel()->getApplicationPath();
+        //echo "<pre>";
+        //print_r(debug_backtrace());
+        //echo "</pre>";
+        $plik = $_SERVER['DOCUMENT_ROOT'] ."/../App/$application_name/Config/config.php";
+        //echo "#".realpath($_SERVER['DOCUMENT_ROOT'] ."/../App/$application_name/Config/config.php")."<br>";
+        //echo $_SERVER['DOCUMENT_ROOT'] ."/../web/App/$application_name/Config/config.php<br>";
         if (file_exists($plik)) {
             if (is_readable($plik)) {
                 //file
@@ -48,7 +62,7 @@ class Config extends Bundle
 //print_r($t);
 //echo "</pre>";
                 if (is_array($t)) {
-                    $this->_config = $t;
+                    return $this->config = $t;
                 }
 //                echo "<pre>111";
 //                print_r($this->_config);//['bundles']);//json_decode($t, true));
