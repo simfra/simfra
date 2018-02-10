@@ -1,5 +1,6 @@
 <?php
 namespace Core\Http\Request;
+
 use Core\Objects\AppArray;
 use Core\Objects\AppObject;
 
@@ -14,6 +15,9 @@ class Request
     
     public static function create()
     {
+
+        //print_r(dirname($_SERVER['SCRIPT_FILENAME']));
+//        die();
         $new = new static();
         if (!defined('PHP_VERSION_ID')) {
             $version = explode('.', PHP_VERSION);

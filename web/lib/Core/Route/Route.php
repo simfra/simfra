@@ -1,5 +1,4 @@
 <?php
-
 namespace Core\Route;
 
 use Core\Exception\FatalException;
@@ -19,16 +18,19 @@ use Core\Objects\AppObject;
 class Route
 {
     protected $page_struct = null;
+    private $kernel = null;
     private $modifiers = array("int", "string");
 
-    public function __construct()
+    public function __construct(\Core\Kernel $kernel)
     {
-        $this->page_struct = $this->getConfig();
+        $this->kernel = $kernel;
+        $this->page_struct = $this->getConfig($this->kernel->getApplicationPath());
     }
 
 
-    public function getConfig()
+    public function getConfig($application_path)
     {
+        //echo "##".$application_path;
         //          @include "Asdsads";
 
         //    }
@@ -37,8 +39,8 @@ class Route
         //echo "Adads";
         //}
         //echo __DIR__. "/../../" . "App/Struct/struct.php";
-        if (file_exists(__DIR__ . "/../../../" . "App/Struct/struct.php")) {
-            include @__DIR__ . "/../../../" . "App/Struct/struct.php";
+        if (file_exists($application_path ."Struct/struct.php")) {
+            include $application_path ."Struct/struct.php";
             if (isset($page) || count($page) == 0) {
                 return $page;
             } else {
@@ -151,7 +153,7 @@ class Route
 
     /**
      * Route::replaceUrl()
-     * Replace modifiers/params with equival regex expressions - needed in regex comparison of 2 urls
+     * Replace modifiers/params with equal regex expressions - needed in regex comparison of 2 urls
      * @param mixed $url - url to be change
      * @return string - modified url
      */

@@ -8,6 +8,10 @@
     <li style="text-align: center;color: white;">
         <table style="width: 80%;color: white;margin: 0 auto;min-width: 300px; margin-top: 20px;margin-bottom: 20px;">
         <tr>
+            <td class="first">Application name:</td>
+            <td class="second">{$dev.page.app}</td>
+        </tr>
+        <tr>
             <td class="first">Controller:</td>
             <td class="second">{$dev.page.controler}</td>
         </tr>

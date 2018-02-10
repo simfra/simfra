@@ -1,6 +1,7 @@
 <?php
 namespace App\Form;
-use App\Form\FieldTypes\BaseType;
+
+//use App\Form\FieldTypes\BaseType;
 use DateTime;
 
 class Form
@@ -15,11 +16,11 @@ class Form
     private $_postData = array();
     private $_errors = array();
     private $dane = array();
-    public $fields = array();    
+    public $fields = array();
     
     /**
      * Form::__construct()
-     * Domyslne wartosci dla formularza: name = 'submit', method = 'get', submit = 'submit', id i klasa dla formularz nie wymagana 
+     * Domyslne wartosci dla formularza: name = 'submit', method = 'get', submit = 'submit', id i klasa dla formularz nie wymagana
      * @return
      */
     public function __construct($form = [])

@@ -1,8 +1,5 @@
 <?php
-
-namespace lib\Core;
-
-
+namespace Core;
 
 use Core\Exception\FatalException;
 
@@ -27,20 +24,15 @@ class Container
 
     public function addBundle($bundle, $name = "")
     {
-        //print_r($this->bundles);
         $reflection = new \ReflectionClass($bundle);
         if ($name == "") { // default name will be class name
             $name = $reflection->getShortName();
         }
-        //echo "Add bundle: $name\n";
         if (!array_key_exists($name, $this->bundles)) {
-            //$bundle->defaultConfig($this->getBundleConfig($name));
-           // echo " - nie ma na bundle list<br />";
             $this->bundles[$name] = $bundle;
+        } else {
+            throw new FatalException("Container", "Bundle ($bundle) is already registered with name: $name");
         }
-//        echo "<pre>";
-//        print_r($this->bundles);
-//        echo "</pre>";
         return $this->bundles[$name];
     }
 
@@ -115,7 +107,6 @@ class Container
                     . $exception->getMessage() . " for class: " . $class_name);
             }
             if ($class) {
-              //  echo "<br />Klasa zalezna: " . $class->name . "<br/>";
                 if ($class->name == get_class($this)) { // if dependency is an instance of App\Bootstrap
                     $dependencies[] = $this;
                 } elseif ($this->isBundle($class->getShortName())) { // dependency could be loaded before as a bundle
@@ -130,12 +121,10 @@ class Container
 
     public function addService($object, $name = "")
     {
-        //print_r($object);
         if (array_key_exists($name, $this->services)) {
             return $this->services[$name];
         } else {
             return $this->services[$name] = $object;
-            //$this->instantiate($object, "service");//
         }
     }
 

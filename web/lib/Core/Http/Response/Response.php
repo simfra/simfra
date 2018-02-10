@@ -12,7 +12,7 @@ class Response
     public $content="";
 
     
-    public function __construct(\Core\Bootstrap $kernel, $content = "", $response_code = "", $useDebug = true)
+    public function __construct(\Core\Kernel $kernel, $content = "", $response_code = "", $useDebug = true)
     {
         $this->kernel = $kernel;
         if ($response_code!="") {

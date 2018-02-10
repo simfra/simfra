@@ -6,7 +6,7 @@ class Model
     
     private $kernel = null;
     
-    public function __construct(\Core\Bootstrap $kernel)
+    public function __construct(Kernel $kernel)
     {
         $this->kernel = $kernel;
     }
@@ -30,7 +30,7 @@ class Model
     public function render(string $template)
     {
         //$this->kernel->getBundle("Config");
-        $this->getBundle("View")->fetch($template);
+        return $this->getBundle("View")->fetch($template);
     }
 
     public function getService($service_name)
