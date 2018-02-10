@@ -4,7 +4,7 @@ ob_start();
 use \Core\Exception\FatalException;
 
 require __DIR__ . '/../lib/Resources/autoload.php';
-$app = new \Core\Bootstrap("my_app", "dev");
+$app = new \my_app\AppKernel("my_app", "dev");
 $request = \Core\Http\Request\Request::create();
 $response = $app->handleRequest($request);
 if ($response instanceof \Core\Http\Response\Response) {

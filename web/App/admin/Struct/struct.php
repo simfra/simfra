@@ -22,13 +22,13 @@ $page = array (
     ),
     'menu' =>
     array (
-      'pl' => 'Start',
-      'en' => 'Start',
+      'pl' => 'Panel',
+      'en' => 'Dashboard',
     ),
     'title' =>
     array (
-      'pl' => 'Strona główna',
-      'en' => 'Home page',
+      'pl' => 'Panel administracyjny',
+      'en' => 'Admin panel',
     ),
     'id' => 1,
   )

@@ -1,36 +1,28 @@
 <?php
 namespace Core;
 
-use App\Database\Database;
-use \Core\Debug\Debug;
-use \Core\Http\Request\Request;
-use \Core\Route\Route;
-use \Core\Exception\FatalException;
-use \Core\Config\Config;
+use Core\Http\Request\Request;
+use Core\Route\Route;
+use Core\Exception\FatalException;
+use Core\Config\Config;
 use Core\Http\Response\Response;
 use Core\Objects\AppArray;
 use Core\Objects\AppObject;
-use lib\Core\Container;
 
-class Bootstrap
+abstract class Kernel
 {
     public $start_time = null;
-    private $application_name = null;
-    //public $controller_name = null;
-    //public $method = null;
-    //public $prefix = null;
-    //public $lang = null;
-    //public $wersje_jezykowe = null;
+    public $application_name = null;
     public $isProd = null;
     public $config = [];
     public $page = null;
-
     private $booted = false;
     private $container = null;
 
 
     /**
      * Bootstrap constructor.
+     * @param string $application_name
      * @param string $application
      * @throws FatalException
      */
@@ -39,12 +31,11 @@ class Bootstrap
         $this->start_time = microtime(true);
         $this->container = new Container();
         set_exception_handler(array($this, "handleException"));
-        //$this->container->addBundle($this); // add this kernel to bundle
         $this->application_name = $application_name;
         if ("prod" === $application) {
             $this->isProd = true;
         } elseif ("dev" === $application) {
-            $this->isProd = 0;
+            $this->isProd = false;
         } else {
             throw new FatalException("App", "No type of application specified.
              You need to set application = 'prod' - for production application or 'dev' to development application");
@@ -66,27 +57,31 @@ class Bootstrap
 
     public function getApplicationPath()
     {
-        return $this->application_name;
+        return realpath(__DIR__ . "/../../App/" . $this->application_name) . "/";
     }
+
+    public function getApplicationNamespace()
+    {
+        return $this->application_name . "\\";
+    }
+
+    public function addBundle($bundle, $name = "")
+    {
+        return $this->getContainer()->addBundle($bundle, $name);
+    }
+
 
     public function bootUp()
     {
-        $this->config = ($this->getContainer()->addBundle(new Config))->getConfig($this->application_name);
-        //$this->getContainer()->addBundle(new Config);
-        //$this->config = $
-        $this->getContainer()->addBundle(new View);
-        $this->getContainer()->addBundle(new Database);
-        $this->getContainer()->addBundle(new Database, "Baza2");
-       //$this->getBundle("View")->setContainer("asdas");
-        echo "<pre>";
-        //print_r($this->config);//getContainer()->listBundles());
-        echo "</pre>";
+        $this->config = ($this->getContainer()->addBundle(new Config))->getConfig($this->getApplicationPath(), $this->application_name);
+        if (!method_exists($this, "registerBundles")) {
+            throw new FatalException("Kernel", "Unable to find registerBundle method!");
+        }
+        $this->registerBundles();
         if ($this->isProd === true) {
             set_error_handler(function () {
                 return true;
             }); // do not show any notice or warning in production enviroment
-        } else {
-            $this->getContainer()->addBundle(new Debug);
         }
         foreach ($this->getContainer()->listBundles() as $name => $bundle) {
             $bundle->setContainer($this->getContainer());
@@ -95,7 +90,6 @@ class Bootstrap
         }
     }
 
-    
     private function handlePage($page, Request $request)
     {
         $this->page = new AppObject($page);
@@ -104,7 +98,7 @@ class Bootstrap
         //$this->page->prefered_lang = $request->getPreferedLanguage($request->languages);
         //  echo "<br />Jezyk strony w ktorym bedzie wyswietlana: $page->lang. Jezyk prefer
         //owany: " . $this->page->prefered_lang. "<br />";
-        $controller_name = "\App\Controller\\" . $page->struct->get('controller');
+        $controller_name = $this->getApplicationNamespace() . "Controller\\" . $page->struct->get('controller');
         $controller = new $controller_name($this);
         return $controller->callControllerMethod($page->struct->get('method'));
     }
@@ -119,15 +113,14 @@ class Bootstrap
             }
             // checking url
             $this->lang = $request->languages;
-            return $this->handlePage((new Route())->checkUrl($request), $request);
+            return $this->handlePage((new Route($this))->checkUrl($request), $request);
         } catch (\Error $error) {
             return $this->HandleException($error);
-        } catch (\ErrorException $e) {
-            die("(*(*(*(");
+        } catch (\ErrorException $error) {
+            return $this->HandleException($error);
         } catch (\Exception $exception) {
             return $this->HandleException($exception);
         }
-
       //  return new \Core\Http\Response\Response($this, ob_get_contents()); // tymczasowo zeby byla jakas tresc :)
     }
     
@@ -148,7 +141,7 @@ class Bootstrap
             http_response_code(500);
             $content = "Fatal Error occured with message <b>". $exception->getMessage() . "</b>";
             $response = new Response($this, $content, 500, false);
-            echo 'asa';
+           // echo 'asa';
             $response->sendResponse();
             return $response;
         }
@@ -190,7 +183,7 @@ class Bootstrap
     
     public function __destruct()
     {
-        if (strlen(ob_get_contents())) { //}&& $this->isProd) {
+        if (ob_get_length() && !$this->isProd) {
             echo "*** WARNING ***<br /> Unsend content in buffer! ";
         }
     }

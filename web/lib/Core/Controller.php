@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-use \Core\Exception\FatalException;
+use Core\Exception\FatalException;
 use Core\Http\Response\Response;
 
 class Controller
@@ -9,7 +9,7 @@ class Controller
     private $kernel = null;
     protected $tpl = null;
 
-    public function __construct(\Core\Bootstrap $kernel)
+    public function __construct(Kernel $kernel)
     {
         $this->kernel = $kernel;
     }
@@ -30,7 +30,7 @@ class Controller
     public function loadModel($name)
     {
         //echo "Name: $name " .  __NAMESPACE__ . "   ". (new \ReflectionClass(get_called_class()))->getShortName() ;
-        $class = '\App\Model\\' . (new \ReflectionClass(get_called_class()))->getShortName();
+        $class = $this->getKernel()->getApplicationNamespace() . "Model\\" . (new \ReflectionClass(get_called_class()))->getShortName();
         if (method_exists(new $class($this->kernel), $name)) {
             return (new $class($this->kernel))->{$name}();
         } else {

@@ -3,8 +3,8 @@ log/*
 ssl/*
 scripts/*
 web/vendor/*
-web/cache/*
+web/App/*/cache/*
 web/components/*
 *.lock
 *.phar
-.idea/.
+.idea/*

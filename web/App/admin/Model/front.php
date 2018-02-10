@@ -1,11 +1,12 @@
 <?php
-namespace App\Model;
+namespace admin\Model;
 
 //use App\Database\Database;
 use App\Form\Form;
 
 //use App\Form\FieldTypes\BaseType;
 //use App\Form\FieldTypes\TextType;
+
 class front extends \Core\Model
 {
 
@@ -13,14 +14,16 @@ class front extends \Core\Model
     {
         //echo "<pre>";
         //$this->getService("App\Database\Database");
-        echo "<pre>";
-        //print_r($this->getBundle("App\Properties\Properties"));
+//        echo "<pre>";
+        print_r($this->getService("Properties\Properties"));
         //print_r($this->getKernel()->bundleList());
         //print_r($this->getBundle("Database"));
         //print_r($this->getKernel()->listServices());
-        echo "</pre>";
-        //echo "aaa";
-        return $this->render("front/front.tpl");
+  //      echo "</pre>";
+
+        echo "aaa<pre>";
+        print_r($this->getKernel()->config);
+        return $this->render("admin/main.tpl");
         $n =$this->getKernel()->getDatabase();// $this->render("front/front.tpl");
         $form = new Form;
         //$a = new \App\Form\FieldTypes\TextType;

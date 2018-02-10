@@ -1,6 +1,6 @@
 <?php
 
-namespace lib\Core;
+namespace Core;
 
 abstract class Bundle
 {
@@ -18,7 +18,7 @@ abstract class Bundle
         return $this->kernel;
     }
 
-    public function bootUp(\Core\Bootstrap $kernel)
+    public function bootUp(Kernel $kernel)
     {
         $this->kernel = $kernel;
         $this->booted = true;
@@ -64,4 +64,9 @@ abstract class Bundle
 //            }
         }
     }
+
+//    public function getRootDir()
+//    {
+//        return $this->getKernel()->getApplicationPath();
+//    }
 }

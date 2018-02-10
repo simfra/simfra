@@ -1,4 +1,5 @@
 <?php
+namespace /;
 /**
  * Error
  * 
@@ -8,7 +9,8 @@
  * @version $Id$
  * @access public
  */
-class Error {
+class Error
+{
     protected $Title;
     protected $Name;
     protected $Debug;

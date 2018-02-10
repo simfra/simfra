@@ -1,10 +1,7 @@
 <?php
 namespace Core\Config;
 
-
-
-use \Core\Exception\FatalException;
-use lib\Core\Bundle;
+use Core\Bundle;
 
 class Config extends Bundle
 {
@@ -30,24 +27,40 @@ class Config extends Bundle
         }
     }
 
-    public function getConfig($application_name)
+    public function getConfig($applicationPath, $application_name)
     {
         //($this->config) ? return $this->config : return
         if ($this->config!=null) {
             return $this->config;
         } else {
-            return $this->loadConfigFromIni($application_name);
+            return $this->loadConfigFromIni($applicationPath, $application_name);
         }
     }
 
 
-    public function loadConfigFromIni($application_name)
+    public function loadConfigFromIni($applicationPath, $application_name)
     {
-       // echo $_SERVER['DOCUMENT_ROOT'] . "<br />\n";//$this->getKernel()->getApplicationPath();
+       // echo $_SERVER['DOCUMENT_ROOT'] . "<br />\n";//
+        //echo $this->getKernel()->getApplicationPath();
         //echo "<pre>";
         //print_r(debug_backtrace());
         //echo "</pre>";
-        $plik = $_SERVER['DOCUMENT_ROOT'] ."/../App/$application_name/Config/config.php";
+        define("APP_NAME", $application_name);
+        //define("APP_NAMESPACE")
+        echo getcwd();
+        //echo "@#@".$this->getRootDir();
+        $root = realpath(__DIR__  . "/../../../") . "/";
+        define("ROOT_DIR", $root);
+        define("APP_DIR", realpath($root  . "App/$application_name")."/");
+
+
+        echo "<pre>";
+        //print_r(debug_backtrace());
+
+        print_r(get_defined_constants(true)['user']);
+        echo "</pre>";
+        //echo "####".$applicationPath ."######";
+        $plik = $applicationPath ."/Config/config.php";
         //echo "#".realpath($_SERVER['DOCUMENT_ROOT'] ."/../App/$application_name/Config/config.php")."<br>";
         //echo $_SERVER['DOCUMENT_ROOT'] ."/../web/App/$application_name/Config/config.php<br>";
         if (file_exists($plik)) {

@@ -1,11 +1,12 @@
 <?php
 namespace App\Database;
+
 //use Core\Objects\App_Array;
 //use Core\Objects\App_Object;
 //use \Core\Interfaces\test_interface;
 //use App\Bundle;
-use \Core\Exception\FatalException;
-use lib\Core\Bundle;
+use Core\Exception\FatalException;
+use Core\Bundle;
 
 class Database extends Bundle
 {

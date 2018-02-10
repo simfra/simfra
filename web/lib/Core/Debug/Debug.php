@@ -1,11 +1,9 @@
 <?php
 namespace Core\Debug;
-use Core\Controller;
+
 use Core\Objects\App_Array;
 use Core\Objects\App_Object;
-use lib\Core\Bundle;
-use Core\Session\Session;
-
+use Core\Bundle;
 
 class Debug extends Bundle
 {
@@ -57,7 +55,9 @@ class Debug extends Bundle
             } else {
                 $buffer = "";
             }
-            ob_end_clean();
+            if (strlen(ob_get_contents())) {
+                ob_end_clean();
+            }
             $tpl->assign("dev", $this->devToolbar());
             $toolbar = $tpl->fetch("Debug/toolbar.tpl");
             $head = "";
@@ -92,11 +92,12 @@ class Debug extends Bundle
                 "controler" => !empty($kernel->page) ? $kernel->page->struct->get('controller') : "[EMPTY]",
                 "method" => !empty($kernel->page) ? $kernel->page->struct->get('method') : "[EMPTY]",
                 "route"=> !empty($kernel->page->url) ? $kernel->page->url : "[URL]",
-                "id" =>  !empty($kernel->page) ? $kernel->page->id : "[EMPTY]"
+                "id" =>  !empty($kernel->page) ? $kernel->page->id : "[EMPTY]",
+                "app" => !empty($kernel->application_name) ? $kernel->application_name : "NO APP NAME"
             ];
-            $temp['class_path'] = class_exists(PATH_USER_CONTROLLER . $kernel->page->struct->get('controller'), false)
-                ? str_replace(array(PATH,".php"), "", (new \ReflectionClass("\App\Controller\\"
-                    . $kernel->page->struct->get('controller')))->getFilename())  : "[CONTROLER]";
+            $temp['class_path'] = class_exists(APP_NAME . "\\Controller\\" . $kernel->page->struct->get('controller'), false)
+                ? str_replace(array(".php"), "", (new \ReflectionClass(APP_NAME."\Controller\\"
+                    . $kernel->page->struct->get('controller')))->getFilename())  :  "[CONTROLER]";
             $temp['http'] = http_response_code();
             $temp['time'] = round(microtime(true) - $kernel->start_time, 3);
             $temp['errors'] = $this->debug;
