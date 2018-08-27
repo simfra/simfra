@@ -1,6 +1,20 @@
 # simfra
 Simple MVC Framework
 
+Simfra is a simple PHP  MVC framework for web applications.
 
-Php dependencies:
-- mbstring
+Installation
+
+php-mbstring
+
+
+
+Documentation
+
+
+
+
+
+
+
+

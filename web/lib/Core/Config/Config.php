@@ -57,7 +57,7 @@ class Config extends Bundle
         echo "<pre>";
         //print_r(debug_backtrace());
 
-        print_r(get_defined_constants(true)['user']);
+        //print_r(get_defined_constants(true)['user']);
         echo "</pre>";
         //echo "####".$applicationPath ."######";
         $plik = $applicationPath ."/Config/config.php";

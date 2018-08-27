@@ -4,10 +4,11 @@ namespace App\Form\FieldTypes;
 abstract class BaseType
 {
     private $name = "";
-    private $options = [];
+    public $options = [];
     private $type = "";
     private $value = "";
-    
+    public $input = "";
+
     public function __construct()
     {
         $this->setDefaults([
@@ -16,8 +17,8 @@ abstract class BaseType
             "class" => "",
             "class_valid" => "",
             "class_error" => "",
-            "label" => "",
             "placeholder" => "",
+            "label" => ""
         ]);
         $this->type = "text";
     }
@@ -27,8 +28,16 @@ abstract class BaseType
         foreach ($defaults as $key => $value) {
             $this->options[$key] = $value;
         }
+        $this->generateView();
         return $this;
     }
+
+    /*public function set($var, $value)
+    {
+        if (property_exists($this, $var)) {
+            $this->$var = $value;
+        }
+    }*/
 
     public function unsetOption($key)
     {
@@ -50,21 +59,26 @@ abstract class BaseType
     public function generateView()
     {
         //echo var_dump($this->getOption("autocomplete"));
-        $temp = "<input name=\"{$this->name}\" value=\"{$this->value}\"";
-            (!empty($this->type)) ? $temp .= " type=\"{$this->type}\"" : "";
-            ($this->getOption("id")) ? $temp .=" id=\"{$this->getOption("id")}\"" : "";
-            ($this->getOption("class")) ? $temp .=" class=\"{$this->getOption("class")}\"" : "";
-            ($this->getOption("max-lenght")) ? $temp .=" maxlenght=\"{$this->getOption("max-lenght")}\"" : "";
-            ($this->getOption("disabled")) ? $temp .=' disabled': '';
+
+        $this->input = "";//print_r($this->options, true) ."";
+        if ($this->getOption("label")) {
+            $this->input = "<label for=\"$this->name\" >" . $this->getOption("label") . "</label>\n";
+        }
+        $this->input .= "<input name=\"{$this->name}\" value=\"{$this->value}\"";
+            (!empty($this->type)) ? $this->input .= " type=\"{$this->type}\"" : "";
+            ($this->getOption("id")) ? $this->input .=" id=\"{$this->getOption("id")}\"" : "";
+            ($this->getOption("class")) ? $this->input .=" class=\"{$this->getOption("class")}\"" : "";
+            ($this->getOption("max-lenght")) ? $this->input .=" maxlenght=\"{$this->getOption("max-lenght")}\"" : "";
+            ($this->getOption("disabled")) ? $this->input .=' disabled': '';
             /// Just HTML5
-            ($this->getOption("autocomplete")) ? $temp .=' autocomplete="on"': '';
-            ($this->getOption("required")) ? $temp .=' required="required"': '';
-            ($this->getOption("autofocus")) ? $temp .=' autofocus': '';
-            $temp .= " >";
-        return $temp;
+            ($this->getOption("autocomplete")) ? $this->input .=' autocomplete="on"': '';
+            ($this->getOption("required")) ? $this->input .=' required="required"': '';
+            ($this->getOption("autofocus")) ? $this->input .=' autofocus': '';
+            $this->input .= " >\n";
+        return $this->input;
     }
-    
-    
+
+
     public function setName($name)
     {
         $this->name = $name;
@@ -84,7 +98,12 @@ abstract class BaseType
         }
         return $this;
     }
-    
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
     public function setValue($value)
     {
         $this->value = $value;
@@ -95,7 +114,17 @@ abstract class BaseType
     {
         return $this->value;
     }
-    
+
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function process()
+    {
+
+    }
     
     
 }

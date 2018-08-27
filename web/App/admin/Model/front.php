@@ -22,7 +22,7 @@ class front extends \Core\Model
   //      echo "</pre>";
 
         echo "aaa<pre>";
-        print_r($this->getKernel()->config);
+        //print_r($this->getKernel()->config);
         return $this->render("admin/main.tpl");
         $n =$this->getKernel()->getDatabase();// $this->render("front/front.tpl");
         $form = new Form;

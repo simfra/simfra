@@ -2,15 +2,16 @@
 namespace Core;
 
 use Core\Exception\FatalException;
+use Core\Exception\TemplateException;
 use Smarty;
 
 class View extends Bundle
 {
     private $template = null;
-    public $templateDir = ROOT_DIR . "templates/";//__DIR__ . "/../../templates";
-    public $compileDir =  "";//__DIR__ . "/../../cache/templates";
+    public $templateDir = APP_DIR . "templates/";//__DIR__ . "/../../templates";
+    public $compileDir =  APP_DIR . "cache/templates";
 
-    public function __constru6ct()
+    public function __constr1uct()
     {
         //$this->getKernel()->getApplicationPath();
         //echo "<pre>";
@@ -25,10 +26,12 @@ class View extends Bundle
     {
         if ($this->template === null) {
             $this->template = new Smarty;
-            if (!file_exists($this->compileDir)) {
+            if (trim($this->compileDir) != "" && !file_exists($this->compileDir)) {
                 if (!mkdir($this->compileDir, 0777, true)) {
-                    die('Failed to create folder: ' . $this->compileDir);
+                    die('Failed to create folder: ' . $this->compileDir . debug_print_backtrace());
                 }
+            } elseif (trim($this->compileDir) == "") {
+                throw new TemplateException("View", "No compile folder set '" . $this->compileDir . "'");
             }
             $this->template->setTemplateDir($this->templateDir)->setCompileDir($this->compileDir);
             Smarty::muteExpectedErrors();
@@ -42,13 +45,18 @@ class View extends Bundle
     }
     
     
-    public function fetch($template, $params = "")
+    public function fetch($template, $dir = APP_DIR . "templates/", $params = "")
     {
         try {
-            return $this->getTemplate()->fetch($template, $params);
+            return $this->getTemplate()->fetch($dir . $template, $params);
         } catch (\Exception $e) {
-            throw new FatalException("View", $e->getMessage());
+            throw new TemplateException("View", $e->getMessage());
         }
+    }
+
+    public function assignByRef($key, $value)
+    {
+        $this->getTemplate()->assignByRef($key, $value);
     }
     
     public function get_template_vars()

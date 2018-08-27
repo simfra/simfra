@@ -6,17 +6,18 @@ use DateTime;
 
 class Form
 {
-    private $form_name;
-    private $form_id;
-    private $form_class;
-    private $form_method;
-    private $form_action;
-    private $form_submit;
+    private $name;
+    private $id;
+    private $class;
+    private $method;
+    private $action;
+    private $submit;
     private $isSend = false;
     private $_postData = array();
     private $_errors = array();
     private $dane = array();
     public $fields = array();
+    public $form = "";
     
     /**
      * Form::__construct()
@@ -25,62 +26,138 @@ class Form
      */
     public function __construct($form = [])
     {
-        (isset($form['name']) ? $this->form_name = $form['name'] : $this->form_name = "submit");
-        (isset($form['id']) ? $this->form_id = $form['id'] : "");
-        (isset($form['class']) ? $this->form_class = $form['class'] : "");
-        (isset($form['method']) ? $this->form_method = $form['method'] : $this->form_method = "get");
-        (isset($form['action']) ? $this->form_action = $form['action'] : $this->form_action = "");
-        (isset($form['submit']) ? $this->form_submit['name'] = $form['submit'] : $this->form_submit['name'] = "submit");
+        (isset($form['name']) ? $this->name = $form['name'] : $this->name = "submit");
+        (isset($form['id']) ? $this->id = $form['id'] : "");
+        (isset($form['class']) ? $this->class = $form['class'] : "");
+        (isset($form['method']) ? $this->method = $form['method'] : $this->method = "get");
+        (isset($form['action']) ? $this->action = $form['action'] : $this->action = "");
+        (isset($form['submit']) ? $this->submit = $form['submit'] : $this->submit = "submit");
         return $this;
     }
 
+
     public function getSubmit()
     {
-        return $this->form_submit;
+        return $this->submit;
     }
     
     public function getAction()
     {
-        return $this->form_action;
+        return $this->action;
     }
     
     public function getMethod()
     {
-        return $this->form_method;
+        return $this->method;
     }
     
     public function getId()
     {
-        return $this->form_id;
+        return $this->id;
     }
     public function getClass()
     {
-        return $this->form_class;
+        return $this->class;
     }
     
     public function getName()
     {
-        return $this->form_name;
-    }    
-    
-    public function addField($name, $type, $attr=[])
-    {
-        $this->fields[] = $this->createField($name, $type, $attr); 
-        return $this;
+        return $this->name;
     }
     
-    
+    public function addField($name, $type, $attr = [])
+    {
+        return $this->fields[] = $this->createField($name, $type, $attr);
+    }
+
+    public function getFieldByName($name)
+    {
+        foreach ($this->fields as $field) {
+            if ($field->getName() == $name) {
+                return $field;
+            }
+        }
+        return false;
+    }
+
+    public function loadXml($file)
+    {
+        $file = __DIR__ . "$file";
+        if (file_exists($file)) {
+            //$content = file($file);
+            $xml = simplexml_load_file($file);
+            if ($xml === false) {
+                foreach (libxml_get_errors() as $error) {
+                    echo "<br>", $error->message;
+                }
+            } else {
+                print_r($xml);
+            }
+        } else {
+            echo "Plik nie istnieje";
+        }
+    }
+
+    public function saveFormToXml($filename = "", $dir = __DIR__ . "/Schema/")
+    {
+        $templates = __DIR__ . "/Templates/";
+        $smarty = new \Smarty();
+        $smarty->assign("form", $this);
+        file_put_contents($dir . "$filename", $smarty->fetch($templates . "FormXml.tpl"));
+    }
+
+    public function generateView()
+    {
+        if (isset($_POST)) {
+            $this->assignValues($_POST);
+            //print_r($_POST);
+        }
+        $this->form = "";
+        $this->form .= "<form name='$this->name' method='$this->method' action='$this->action'";
+            (!empty($this->class)) ? $this->form .= " class='$this->class'" : "";
+            (!empty($this->id)) ? $this->form .= " id='$this->id'" : "";
+            $this->form .= " >\n";
+        foreach ($this->fields as $field) {
+            $this->form .= $field->generateView();
+        }
+        // submit button
+        $this->form .= "<input type='submit' name='" . $this->name . "'";
+        (isset($this->submit)) ? $this->form .= " value='" . $this->submit ."' " :  "";
+        $this->form .= "/>\n";
+        $this->form .= "</form>\n";
+        return $this->form;
+    }
+
+    public function assignValues($table)
+    {
+        foreach ($this->fields as $key => $field) {
+            $name = $field->getName();
+            if (isset($table[$name])) {
+                $field->setValue($table[$name]);
+            }
+        }
+    }
+
     private function createField($name, $type, $defaults = [])
     {
         $class = "\App\Form\FieldTypes\\" . $type;
-        if(class_exists($class))
-        {
-            return 
+        if (class_exists($class)) {
+            return
                 (new $class)
                 ->setName($name)
                 ->setDefaults($defaults);
         }
         return void;
+    }
+
+
+    public function validateField($field)
+    {
+        if ($field instanceof \App\Form\FieldTypes\BaseType) {
+            // 
+        } else {
+            //
+        }
     }
     
     public function getFields()
@@ -94,17 +171,21 @@ class Form
         $ret = [];
         $this->prepareFields();
         $ret['form'] = $this->fields;
-        if (count($this->_errors) > 0)
-        {
+        if (count($this->_errors) > 0) {
             $ret['errors'] = $this->_errors;
         }
         return $ret;
     }
 
+    public function process()
+    {
+
+    }
+
     private function makeInput($tablica)
-    {          
+    {
         $name = $tablica['name'];
-        $errors = $this->_errors;  
+        $errors = $this->_errors;
         if (isset($this->_postData[$name]))
         {
             $value = $this->_postData[$name];
@@ -238,7 +319,7 @@ class Form
                                 $pole .= "selected ";
                             }
                         }                        
-                    } elseif (isset($tablica['default']) && $this->isSend($this->form_submit['name']) == false)
+                    } elseif (isset($tablica['default']) && $this->isSend($this->submit['name']) == false)
                     {
                         if(is_array($tablica['default']))
                         {
@@ -270,7 +351,7 @@ class Form
         {          
             $ile_wybranych = 0;
             $checkboxy = $tablica['options'];
-            if($this->isSend($this->form_submit['name']))
+            if($this->isSend($this->submit['name']))
             {
                 $wartosc = $value;
                 $tmp = explode('&', $wartosc);
@@ -429,20 +510,20 @@ class Form
     private function prepareFields()
     {
         // poczatek formularza
-        $this->fields['start_input'] = sprintf('<form name="%s" action="%s" method="%s" ', $this->form_name, $this->form_action, $this->form_method);
+        $this->fields['start_input'] = sprintf('<form name="%s" action="%s" method="%s" ', $this->name, $this->action, $this->method);
         return ;
         $temp = array();
-        $temp['start']['name'] = $this->form_name;
-        $temp['start']['action'] = $this->form_action;
-        $temp['start']['method'] = $this->form_method;
-        $temp['start']['id'] = $this->form_id;
-        $temp['start']['class'] = $this->form_class;
-        $temp['start_input'] = "<form name=\"$this->form_name\" action=\"$this->form_action\" method=\"$this->form_method\" ";
-        if(isset($this->form_id)){
-            $temp['start_input'] .= "id=\"$this->form_id\" ";
+        $temp['start']['name'] = $this->name;
+        $temp['start']['action'] = $this->action;
+        $temp['start']['method'] = $this->method;
+        $temp['start']['id'] = $this->id;
+        $temp['start']['class'] = $this->class;
+        $temp['start_input'] = "<form name=\"$this->name\" action=\"$this->action\" method=\"$this->method\" ";
+        if(isset($this->id)){
+            $temp['start_input'] .= "id=\"$this->id\" ";
         } 
-        if(isset($this->form_class)){
-            $temp['start_input'] .= "class=\"$this->form_class\" ";
+        if(isset($this->class)){
+            $temp['start_input'] .= "class=\"$this->class\" ";
         }         
         $temp['start_input'] .=" >";
         $temp['finish_input'] = "</form>";
@@ -463,7 +544,7 @@ class Form
             }
             $temp['fields'][$key]['input'] = $this->makeInput($value);
         }
-        $temp['fields']['finish']['input'] = "<input ".(isset($this->form_submit['class'])? 'class="'.$this->form_submit['class'].'"' : "class=\"btn btn-primary\"")." type=\"submit\" name=\"" . $this->form_submit['name'] . "\" value=\"" . $this->form_submit['name'] . "\" />"; //array("name" => $this->submit, "id" => "style", 'typ' => 'submit');
+        $temp['fields']['finish']['input'] = "<input ".(isset($this->submit['class'])? 'class="'.$this->submit['class'].'"' : "class=\"btn btn-primary\"")." type=\"submit\" name=\"" . $this->submit['name'] . "\" value=\"" . $this->submit['name'] . "\" />"; //array("name" => $this->submit, "id" => "style", 'typ' => 'submit');
         $this->fields = $temp;
     }
 
@@ -501,7 +582,7 @@ class Form
      */
     public function sprawdz()
     {
-        if ($this->isSend($this->form_submit['name']) == true)
+        if ($this->isSend($this->submit['name']) == true)
         {
             $this->validate($_REQUEST, $this->fields);
             if ($this->hasErrors() == false) // GDY NIE MA BLEDOW
@@ -527,7 +608,7 @@ class Form
     public function formExec()
     {
         $this->sprawdz();
-        if($this->isSend($this->form_submit['name']))
+        if($this->isSend($this->submit['name']))
         {
             if($this->hasErrors()==true )
             {
@@ -623,7 +704,7 @@ class Form
     {
         if ($submit == "")
         {
-            $submit = $this->form_submit['name'];
+            $submit = $this->submit['name'];
         }
         if (isset($_REQUEST[$submit]) || isset($_POST[$submit]))
         {

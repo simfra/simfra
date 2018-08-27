@@ -10,50 +10,38 @@ class Debug extends Bundle
     private $debug = [];
     public $show_buffer = false;
     const SESSION_NAME = "SIMFRA_DEBUG";
+    private $theme = "default";
+    public $minimalized_toolbar = true;
 
     public function __construct()
     {
-        //echo "PATH: " . __DIR__ . " " . __CLASS__;
         error_reporting(E_ALL);
-        //session_start(["session_name" => SESSION_NAME]);
-
         ini_set('display_errors', 1);
         $this->debug = ["notice"=>[], "warning"=>[]];
         set_error_handler(array($this, "errorException"));
         register_shutdown_function([$this, "shutDown"]);
         $this->show_buffer = true;
-        //var_dump(parent::class);
-
-        //print_r($_SESSION);
-
-        //trigger_error("Error Message", E_USER_WARNING);
     }
     
     public function addDebugError($type, $error)
     {
-        //echo "Typ: $type\n";
-        $this->debug[$type][] = $error;
-        //echo "*****************<pre>";
-        //print_r($this->debug[$type]);
-        //echo "</pre>";
+        if ($type == "notice" || $type == "warning") {
+            $this->debug[$type][] = $error;
+        }
     }
     
     public function makeDevToolbar($content, $show_buffer = true)
     {
-//echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>";
-
+        //echo "<pre>"; print_r($this->getContainer()->getBundle("Config")); echo "</pre>";
         //Session::start($this::SESSION_NAME);
-
         if ($this->isBundle("View")) {
             $tpl = $this->getBundle("View");
-            //$tpl->assign("path_www", URL);
-            //echo "<pre>"; print_r($this->getBundle("Debug")); echo "</pre>";
-            //$tpl->assign("ismobile", $this->kernel->isMobile);
-            $tpl->assign("dev_templates", $this->parseTemplate($tpl->get_template_vars()));
+            // testowo
+            $t = ["multi"=>["jeden" => ["poziom1"=> 1, "poziom2" => 2], "dwa" => [0=> "aaa", 1 => '<input type="text" value="kuku"/>'] ]];
+            $tpl->assign("minimalized_toolbar", $this->minimalized_toolbar);
+            $tpl->assign("dev_templates", array_merge($tpl->get_template_vars(), $t, $this->getKernel()->page->struct->getAll()));//$this->parseTemplate(array_merge($tpl->get_template_vars(), , $this->getKernel()->page->struct->getAll(), $t)));
             if ($this->show_buffer == true && mb_strlen(ob_get_contents()) && $show_buffer === true) {
-                $buffer = '<div id="devtoolbar_buffer"><h2>Buffered output</h2><div>'.ob_get_contents()."</div></div>";
-            } else {
-                $buffer = "";
+                $tpl->assign("debug_buffer", ob_get_contents());
             }
             if (strlen(ob_get_contents())) {
                 ob_end_clean();
@@ -61,22 +49,59 @@ class Debug extends Bundle
             $tpl->assign("dev", $this->devToolbar());
             $toolbar = $tpl->fetch("Debug/toolbar.tpl");
             $head = "";
-            (strpos($content, "<!DOCTYPE html>")=== false) ? $head = "<!DOCTYPE html>" . $head : "";
-            (strpos($content, "<body")=== false) ? $body = "<body>" : $body = "";
-            if (strpos($content, "</head>")!== false) {
-                $content = str_replace("</head>", '<link type="text/css" href="/css/toolbar.css" rel="stylesheet" /></head>' . $body, $content);
-            } else {
-                $content = $head . '<head><link type="text/css" href="/css/toolbar.css" rel="stylesheet" /></head>' . $body . $content;
+            //$dom = new \DOMDocument();
+//            //$implementation = new \DOMImplementation();
+//            $doctype = (new \DOMImplementation)->createDocumentType("html");
+//            $dom = (new \DOMImplementation)->createDocument(null, null, $doctype);
+//            $dom->appendChild($doctype);
+//            $dom->loadHTML($content, LIBXML_DTDLOAD);
+//
+//            echo $dom->saveHTML();
+            //$doctype = \DOMImplementation::createDocumentType("html");
+            //$doc = \DOMImplementation::createDocument("", "", $doctype);
+      /*      $doc = new \DOMDocument('1', 'UTF-8');
+            $doc->loadHTML($content."</html>");//"<HTML>sdfsdf</HTML>");
+            //if($doc->getElementsByTagName("!doctype")->length ==0 )
+            {
+              //  echo "brak doctype";
+                echo "##".$doc->doctype."#";
             }
+            $a = $doc->createElement("head", "afsdfsd");
+            $doc->appendChild($a);*/
+//die();
+  //          die($doc->saveHTML());
+            $content = trim($content);
 
-            if (strpos($content, "</body>")!== false) {
-                $content = str_replace("</body>", $buffer . $toolbar . " </body>", $content);
+            //die($dom)
+            //var_dump($content);
+            //die();
+            //$indenter = new \Gajus\Dindent\Indenter();
+            //$indenter->indent('[..]');
+            //$tidy->parseString($html, $tidy_options);
+            echo $this->theme;
+            $theme_css = '<link type="text/css" href="/themes/toolbar/'.$this->theme.'/toolbar.css" rel="stylesheet" />';
+            $theme_js = '<script src="/themes/toolbar/'.$this->theme.'/toolbar.js" ></script>';
+            (strpos($content, "<body")=== false) ? $content = "<body>$content</body>" : "";
+            (strpos($content, "<head>") === false)
+                ? $content = '<head>' . $theme_css . $theme_js . '</head>' . $content
+                : $content = str_replace("</head>", $theme_css . $theme_js . '</head>', $content);
+            (strpos($content, "<html")=== false) ? $content = "<html>$content</html>" : "";
+
+            /*if (strpos($content, "</head>")!== false) {
+                $content = str_replace("</head>", '<link type="text/css" href="/css/toolbar_new.css" rel="stylesheet" /></head>'. $body, $content);
             } else {
-                $content .= $buffer . "" . $toolbar;
+                $content = $head . '<head><link type="text/css" href="/css/toolbar_new.css" rel="stylesheet" /></head>' . $body . $content;
+            }*/
+            (strtoupper(substr($content, 0, 9)) !== '<!DOCTYPE') ? $content = "<!DOCTYPE html>$content"  : "";
+            //$content = $indenter->indent($content);
+            if (strpos($content, "</body>")!== false) {
+                $content = str_replace("</body>", $toolbar . " </body>", $content);
+            } else {
+                $content .= $toolbar;
             }
         }
         $content .="";
-        return $content;
+        return $content;//$content;
     }
     
 
@@ -87,41 +112,23 @@ class Debug extends Bundle
         $kernel = $this->getKernel();
         $temp['memory'] = round($mem/1024);
         $temp['files'] = get_included_files();
-        $temp['lang'] = $kernel->page->prefered_lang;
+        $temp['lang'] = $kernel->page->preferred_lang;
         $temp['page'] = [
-                "controler" => !empty($kernel->page) ? $kernel->page->struct->get('controller') : "[EMPTY]",
-                "method" => !empty($kernel->page) ? $kernel->page->struct->get('method') : "[EMPTY]",
-                "route"=> !empty($kernel->page->url) ? $kernel->page->url : "[URL]",
+                "controller" => !empty($kernel->page) ? $kernel->page->struct->controller : "[EMPTY]",
+                "method" => !empty($kernel->page) ? $kernel->page->struct->method : "[EMPTY]",
+                "route"=> !empty($kernel->page->url) ? $kernel->page->url : $_GET['url'],
                 "id" =>  !empty($kernel->page) ? $kernel->page->id : "[EMPTY]",
                 "app" => !empty($kernel->application_name) ? $kernel->application_name : "NO APP NAME"
             ];
-            $temp['class_path'] = class_exists(APP_NAME . "\\Controller\\" . $kernel->page->struct->get('controller'), false)
-                ? str_replace(array(".php"), "", (new \ReflectionClass(APP_NAME."\Controller\\"
-                    . $kernel->page->struct->get('controller')))->getFilename())  :  "[CONTROLER]";
+            $temp['class_path'] = class_exists(APP_NAME . "\\Controller\\" . $kernel->page->struct->controller, false)
+                ? (new \ReflectionClass(APP_NAME."\Controller\\" . $kernel->page->struct->controller))->getName()  :  $kernel->page->struct->controller;
             $temp['http'] = http_response_code();
             $temp['time'] = round(microtime(true) - $kernel->start_time, 3);
             $temp['errors'] = $this->debug;
+            echo "<pre>";
+            //print_r($temp);
+            echo "</pre>";
         return $temp;
-    }
-    
-    
-    
-    private function parseTemplate($table)
-    {
-        ksort($table);
-        $result = "";
-        foreach ($table as $key => $value) {
-            $result .= '<ol name="folding"><label">' . htmlentities($key) ."</label>";
-            if (!is_array($value) && mb_strlen($value)>80) {
-                $result .= '<span class="dev_toolbar_plus">+</span><div>' . htmlentities($value)."</div>";
-            } elseif (is_array($value)) {
-                $result .= '<span class="dev_toolbar_plus">+</span><div><pre>' . print_r($value, true)."</pre></div>";
-            } else {
-                $result .= "- ".htmlentities($value);
-            }
-            $result .="</ol>";
-        }
-        return $result;
     }
     
     public function errorException($errno, $errstr, $errfile, $errline)
@@ -137,7 +144,6 @@ class Debug extends Bundle
             case E_CORE_ERROR:
             case E_COMPILE_ERROR:
             case E_RECOVERABLE_ERROR:
-                $this->addDebugError("fatal", $tmp);
                 break;
             case E_USER_WARNING:
             case E_WARNING:
@@ -162,9 +168,6 @@ class Debug extends Bundle
     
     public function getErrors($type = "")
     {
-//        echo "***<pre>";
-//        print_r($this->debug);
-//        echo "</pre>";
         switch ($type) {
             default:
                 return $this->debug;

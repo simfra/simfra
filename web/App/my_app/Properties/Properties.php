@@ -1,7 +1,5 @@
 <?php
-
-namespace App\my_app\Properties;
-
+namespace Properties;
 
 class Properties
 {

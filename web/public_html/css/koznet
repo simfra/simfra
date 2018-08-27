@@ -1,0 +1,33 @@
+[connection]
+id=Koznet
+uuid=89727565-e935-45f5-87ab-43d2e71dd898
+type=vpn
+permissions=
+secondaries=
+
+[vpn]
+NAT Traversal Mode=natt
+IPSec secret-flags=0
+Vendor=cisco
+Xauth username=pawel
+IPSec gateway=asa.koznet.pl
+Xauth password-flags=0
+IPSec ID=KOZNET
+Perfect Forward Secrecy=server
+IKE DH Group=dh2
+Local Port=0
+service-type=org.freedesktop.NetworkManager.vpnc
+
+[vpn-secrets]
+IPSec secret=k0z##00rM
+Xauth password=isye&3Ga*
+
+[ipv4]
+dns=192.168.10.132;
+dns-search=roksa.lan;\sroksa.pl;
+may-fail=false
+method=auto
+
+[ipv6]
+dns-search=
+method=auto

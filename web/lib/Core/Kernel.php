@@ -90,17 +90,11 @@ abstract class Kernel
         }
     }
 
-    private function handlePage($page, Request $request)
+    private function handlePage($page)
     {
-        $this->page = new AppObject($page);
-        $this->page->add("request", $request);
-        $this->page->add("prefered_lang", $request->getPreferedLanguage($request->languages));
-        //$this->page->prefered_lang = $request->getPreferedLanguage($request->languages);
-        //  echo "<br />Jezyk strony w ktorym bedzie wyswietlana: $page->lang. Jezyk prefer
-        //owany: " . $this->page->prefered_lang. "<br />";
-        $controller_name = $this->getApplicationNamespace() . "Controller\\" . $page->struct->get('controller');
+        $controller_name = $this->getApplicationNamespace() . "Controller\\" . $page->struct->controller;
         $controller = new $controller_name($this);
-        return $controller->callControllerMethod($page->struct->get('method'));
+        return $controller->callControllerMethod($page->struct->method);
     }
 
     
@@ -111,37 +105,50 @@ abstract class Kernel
             if ($this->booted === false) {
                 $this->bootUp();
             }
+            $this->page = new AppObject((new Route($this))->checkUrl($request));
+            $this->page->add("request", $request);
+            echo "<pre>";
+            //print_r();
+            echo "</pre>";
+            $this->config = new AppObject($this->config);
+            $this->page->add("preferred_lang", $request->getPreferredLanguage($this->config->app->languages));
             // checking url
-            $this->lang = $request->languages;
-            return $this->handlePage((new Route($this))->checkUrl($request), $request);
+            echo "<pre>";
+            //print_r($this->page);
+            echo "</pre>";
+            //$this->lang = $request->languages;
+            $response = $this->handlePage($this->page, $request);
         } catch (\Error $error) {
-            return $this->HandleException($error);
+            $response = $this->HandleException($error);
         } catch (\ErrorException $error) {
-            return $this->HandleException($error);
+            $response = $this->HandleException($error);
         } catch (\Exception $exception) {
-            return $this->HandleException($exception);
+            $response = $this->HandleException($exception);
         }
-      //  return new \Core\Http\Response\Response($this, ob_get_contents()); // tymczasowo zeby byla jakas tresc :)
+        if (!$this->isProd && $this->getContainer()->isBundle("Debug")) {
+            $response->content = $this->getContainer()->getBundle("Debug")->makeDevToolbar($response->getContent());
+        }
+        return $response;
     }
     
     // @TODO: Refactor this
     public function handleException($exception)
     {
-        //echo "<pre>";
+        echo "<pre>";
         //print_r($exception);
-        //echo "</pre>";
+        echo "</pre>";
+        $exception->isProd = $this->isProd; // to determine if exception been thrown in production/dev enviroment
         $temporary= new AppArray([
                 "controller" => method_exists($exception, "getName") ? $exception->getName(): "Unknown name",
                 "method" => __FUNCTION__,
-                "prefered_lang" => isset($this->page->prefered_lang) ? $this->page->prefered_lang : "pl",
-                "lang" => isset($this->page->lang) ? $this->page->lang : "pl"
+                "preferred_lang" => (method_exists($this->page, "get") ) ? $this->page->preferred_lang : "en",
+                "lang" => isset($this->page->lang) ? $this->page->lang : "en"
             ]);
         $this->page = new AppObject(["struct" => $temporary]);
         if ($this->container === null ||  $this->container->isBundle("View") === false) { // No templates system
-            http_response_code(500);
+            http_response_code((method_exists($exception, "getStatusCode") ? $exception->getStatusCode() :500));
             $content = "Fatal Error occured with message <b>". $exception->getMessage() . "</b>";
-            $response = new Response($this, $content, 500, false);
-           // echo 'asa';
+            $response = new Response($content, (method_exists($exception, "getStatusCode") ? $exception->getStatusCode() :500), $exception->getHeaders());
             $response->sendResponse();
             return $response;
         }
@@ -149,8 +156,8 @@ abstract class Kernel
         if ($this->isProd) { // When Application is production - show error page
             $template->assign("message", method_exists($exception, "getMessage") ? $exception->getMessage() : "Unknown message");//$exception->getMessage());
             $template->assign("content", ob_get_contents());
-            $content = $template->fetch("Error/Error500.tpl");
-            $response = new Response($this, $content, 500);
+            $content = $template->fetch($exception->getTemplate());//"Error/Error500.tpl");
+            $response = new Response($content, (method_exists($exception, "getStatusCode") ? $exception->getStatusCode() :500), $exception->getHeaders());
         } else { // Development enviroment - show Exception page with debug info
             if (is_a($exception, "\Error")) {
                 $template->assign("title", "Error Exception");
@@ -173,10 +180,12 @@ abstract class Kernel
                 ? $exception->getMessage(): "Unknown message");
             $template->assign("content", ob_get_contents());
             $content = $template->fetch("Exception/fatal.tpl");
-            $response = (new Response($this, $content, 500))->addHeader("aaaa");
+            //$response = (new Response($content, $exception->getStatusCode()))->addHeader("aaaa");
+            $response = new Response($content, (method_exists($exception, "getStatusCode")
+                ? $exception->getStatusCode() : 500), (method_exists($exception, "getHeaders")
+                ? $exception->getHeaders() : []));
+            //$response->sendResponse();
         }
-        //$response->sendResponse();
-       // echo $content;
         return $response;// new \Core\Http\Response\Response($this, $content);
     }
     
@@ -217,219 +226,21 @@ abstract class Kernel
 
 
 
-    public function sort_by_key($arr, $key)
+
+
+    public static function loadApp($app_name, $app_type)
     {
-        global $key2sort;
-        $key2sort = $key;
-        uasort($arr, 'Bootstrap::sbk');
-        return ($arr);
-    }
-
-    public static function sbk($a, $b)
-    {
-        global $key2sort;
-        return (strcasecmp($a[$key2sort], $b[$key2sort]));
-    }
-    
-
-    /**
-     * Bootstrap::sprawdzMobile()
-     * Sprawdza czy użytkownik korzysta z urządzenia mobilnego
-     * @return 0 - jezeli nie, 1 - jezeli mobil
-     */
-    public function sprawdzMobile()
-    {
-        global $config, $params;
-        $ismobile = 0;
-        $wykryj = new Mobile_Detect;
-        $ismobile = $wykryj->isMobile();
-        if ($ismobile=="") {
-            $ismobile =0;
-        }
-        $_SESSION['czyTelefon'] = $ismobile;
-        $opera = (int)$wykryj->version("Opera");
-        $ie =  (int)$wykryj->version("IE");
-        if (!isset($_SESSION['grade'])) {
-            $grade = $wykryj->mobileGrade();
-            $_SESSION['grade'] = $grade;
-        }
-        return $ismobile;
-    }
-
-
-    /**
-     * Bootstrap::get_real_ip()
-     * Wykrywa IP uzytkownika nawet gdy łączy się przez PROXY
-     * @return IP
-     */
-    public function get_real_ip()
-    {
-        //return "asdas";
-        $ip = $_SERVER['REMOTE_ADDR'];
-        if (empty($ip) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (empty($ip) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        // Gdy jest proxy wiec ten adres jest ip rzeczywistym
-        echo $ip;
-        return $ip;
-    }
-    /**
-     * Bootstrap::log()
-     * Logowanie komunikatów do pliku
-     * @param mixed $tekst
-     * @return void
-     */
-    public function log($tekst, $plik = "mvc.log")
-    {
-//        echo $tekst;
-        global $config;
-        $handle = fopen(PATH . "log/".$plik, "a+");
-        fwrite($handle, "" . date("d-m-Y H:i:s") . " | " . $this::get_real_ip() . " | " . $tekst . "\n");
-        fclose($handle);
-    }
-
-
-    
-    // Funkcja tylko do sprawdzania wartości zmiennej np. $_POST,wczytywana ajaxem to nie wyświetla print_r :)
-    public function log_var($var)
-    {
-        file_put_contents(PATH_LOG . "var.log", var_export($var, true));
-    }
-    
-     
-
-
-    
-    public static function log_system($modul, $komunikat, $priorytet = LOG_INFO)
-    {
-        openlog($modul, LOG_PID, LOG_LOCAL5);
-        $data = date("Y/m/d H:i:s");
-        $debug = debug_backtrace();
-        if (count($debug)>0) {
-            if (mb_strtolower($debug[0]['class'])!="bootstrap") { // ABY POMIJALO FUNKCJE WYWOLYWANE Z TEJ KLASY, GDY WYWOLANE ZOSTANIE np UPDATE .. to ta funkcja wywola funkcje query z tej klasy wiec błednie bedzie pokazywac poprzednia klase - nie ta z której faktycznie przyszlo zapytanie do bazy
-                //$nr = 0;
-            } elseif ($debug[1]['class']!="baza") {
-                $nr=1;
-            } else {
-                $nr=2;
-            }
-            $plik = $debug[$nr]['class'];
-            $funkcja = $debug[$nr]['function'];
-        }
-
-        //syslog(LOG_DEBUG,"Messagge: $data". debug_backtrace()[1]['function']);
-        $ip = self::get_real_ip() ;
-        if ($priorytet === LOG_INFO || $priorytet===LOG_DEBUG) {
-            syslog($priorytet, "[$ip][$plik-$funkcja] $komunikat");
+        $kernel = "\\".$app_name."\\AppKernel";
+        if (class_exists($kernel)) {
+            return new $kernel($app_name, $app_type);
         } else {
-            syslog(LOG_DEBUG, "[$ip][$plik-$funkcja] $komunikat");
+            http_response_code(500);
+            $content = "Fatal Error occured with message <b>Unable to load app: $app_name</b>";
+            $response = new Response($content, 500, false);
+            $response->sendResponse();
         }
-        closelog();
-
-        $handle = fopen(PATH_LOG . 'debug.log', "a+");
-        chmod(PATH_LOG . 'debug.log', 0777);
-        fwrite($handle, "$data | $plik | $funkcja | " . $komunikat . "\n");
-        fclose($handle);
-    }
-    
-    public static function hashPassword($wejscie)
-    {
-        return password_hash($wejscie, PASSWORD_DEFAULT);
     }
 
-    public static function generatePassword($dlugosc)
-    {
-        $pattern = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-        $key = "";
-        $count = strlen($pattern) - 1;
-        for ($i = 0; $i < $dlugosc; $i++) {
-            $key .= $pattern{rand(0, $count)};
-        }
-        return $key;
-    }
-    
-
-    public function arrayColumns($tablica, $kolumny)
-    {
-        $ret = array();
-        if (count($tablica)>0 && count($kolumny)>0) {
-            foreach ($tablica as $key => $value) {
-                if (in_array($key, $kolumny)) {
-                    $ret[$key] = $tablica[$key];
-                }
-            }
-        }
-        return $ret;
-    }
-
-//
-//    private function instantiate($class_name, $type = "service")
-//    {
-//
-//        try {
-//            $reflection = new \ReflectionClass($class_name);
-//        } catch (\ReflectionException $a) {
-//        //    throw new FatalException("Failed dependency load", "Unable to load dependency. "  . $a->getMessage() . " for class: ". $class_name);
-//            die("diee");
-//        }
-//        $constructor = $reflection->getConstructor();
-//        if (!$constructor) { // If there is no constructor - add simple object
-//            echo "bez constructora";
-//        }
-//        $dependencies = [];
-//        $params = $constructor->getParameters();
-//        //die("111");
-//        foreach ($params as $param) {
-//            try {
-//                $class = $param->getClass();
-//            } catch (\ReflectionException $a) {
-//                throw new FatalException("Failed dependency load", "Unable to load dependency. "
-//                    . $a->getMessage() . " for class: ". $class_name);
-//                die("222");
-//            }
-//
-//            if ($class) {
-//                echo "<br />Klasa zalezna: ". $class->name . "<br/>";
-//                if ($class->name == get_class($this)) { // if dependency is an instance of App\Bootstrap
-//                    //echo "ten";
-//                    $dependencies[] = $this;
-//                } elseif ($this->isBundle($class->getShortName())) { // dependency could be loaded before as a bundle
-//                    $dependencies[] = $this->getBundle($class->getShortName());
-//                } else {
-//                    $dependencies[]  = "adas" . $class->name;//$this->getService($class->name);
-//                    //die();
-//                }
-//            }
-//        }
-////            echo "<br />".$class_name ."   Dependencies<pre>";
-////            print_r($dependencies);
-////            echo "</pre>";
-//        return $this->addService($reflection->newInstanceArgs($dependencies), $reflection->getShortName());
-//
-//        if (!$constructor) { // If there is no constructor - add simple object
-//            echo "bez constructora";
-//            if ($type == "service") {
-//                return $this->addService($reflection->newInstance(), $reflection->getShortName());
-//            }
-//            if ($type == "bundle") {
-//                return $this->bundles[$reflection->getShortName()] = $reflection->newInstance();//$this->addService($reflection->newInstance(), $reflection->getShortName());
-//            }
-//        }
-//
-//        if ($type == "service") {
-////            echo "Dependencies<pre>";
-////            print_r($dependencies);
-////            echo "</pre>";
-//        //    return $this->addService($reflection->newInstance(), $reflection->getShortName());
-//            return $this->addService($reflection->newInstanceArgs($dependencies), $reflection->getShortName());
-//        }
-//        if ($type == "bundle") {
-//            return $this->bundles[$reflection->getShortName()] = $reflection->newInstanceArgs($dependencies);//$this->addService($reflection->newInstance(), $reflection->getShortName());
-//        }
-//    }
 
 
 

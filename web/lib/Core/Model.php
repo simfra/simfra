@@ -38,6 +38,11 @@ class Model
         return $this->getContainer()->getService($service_name);
     }
 
+    public function getTemplete()
+    {
+        return $this->getBundle("View");
+    }
+
 
 
 }

@@ -40,4 +40,10 @@ class FatalException extends \Exception
     {
         return $this->Function;
     }
+
+
+    public function getStatusCode()
+    {
+        return  500;
+    }
 }

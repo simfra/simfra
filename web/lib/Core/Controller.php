@@ -42,7 +42,7 @@ class Controller
     public function callControllerMethod($name)
     {
         if (method_exists($this, $name)) {
-            return  new Response($this->kernel, $this->{$name}());
+            return new Response($this->{$name}());
         } else {
             throw new FatalException("Controller", "No method exists ($name) in this class");
         }

@@ -8,3 +8,5 @@ web/components/*
 *.lock
 *.phar
 .idea/*
+1/*
+old/*

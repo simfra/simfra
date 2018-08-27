@@ -11,7 +11,11 @@ class AppObject implements ObjectMethod
     {
         if ($initial_values!="") {
             foreach ($initial_values as $key => $value) {
-                $this->$key = $value;
+                if (is_array($value)) {
+                    $this->add($key, new AppObject($value));
+                } else {
+                    $this->$key = $value;
+                }
             }
         }
     }
@@ -51,6 +55,7 @@ class AppObject implements ObjectMethod
     
     public function getAll()
     {
+        return $this;
         $ret_array = array();
         foreach ($this as $key => $value) {
             $ret_array[$key] = $value->getAll();

@@ -2,6 +2,8 @@
 namespace Core\Route;
 
 use Core\Exception\FatalException;
+use Core\Exception\HttpException;
+use Core\Exception\NotFoundException;
 use Core\Http\Request\Request;
 use Core\Objects\AppArray;
 use Core\Objects\AppObject;
@@ -20,6 +22,7 @@ class Route
     protected $page_struct = null;
     private $kernel = null;
     private $modifiers = array("int", "string");
+    private $url = null;
 
     public function __construct(\Core\Kernel $kernel)
     {
@@ -203,9 +206,9 @@ class Route
         foreach ($urls as $page) {
             if (($type == "exact" && trim($page['exact']) != "") || ($type == "cond" && trim($page['cond']) != "")) {
                 //die("1");
-                $strona['struct'] = new AppArray($this->page_struct[$page['id']]);
+                $strona['struct'] = new AppObject($this->page_struct[$page['id']]);
                 $strona['lang'] = reset($page['lang']); // first language of selected page
-                $strona['url'] = $page['url'];
+                $strona['url'] = ($page['url']) ? $page['url'] : "1111";//$this->url;
                 return new AppObject($strona);
             }
         }
@@ -225,6 +228,7 @@ class Route
 //        print_r($request);
 //        echo "</pre>";
         $url = $request->query->get("url");
+        $this->url = $url;
         // preg_replace("/\/\[\w+\|?(int)?:(\?)?\]/i", "(/\d+)?", $input_lines);   - zamienia zmienna np [strona|int:?]
         // preg_replace("/\[\w+\|?(int)\]/", "(\d+)", $input_lines); - zamienia [strona|int]
         // preg_replace("/\[\w+\|?(string)\]/", "(\w+)", $input_lines); - zamienia [strona|string]
@@ -278,9 +282,9 @@ class Route
             return $this->extractPage($links, "cond");
         } elseif ($exact > 1 || $cond > 1) {
             // temporary - to show i
-            throw new FatalException("Route", "Requested url fit to more than one url in struct!. Check Your struct file.");
+            throw new HttpException(404, "Requested url fit to more than one url in struct!. Check Your struct file.");
         } else {
-            throw new FatalException("Route", "Requested url not found.");
+            throw new NotFoundException(404, "Requested url not found.");
             //return false;
         }
     }

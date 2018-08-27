@@ -13,7 +13,7 @@ class Request
 
 
     
-    public static function create()
+    public static function Create()
     {
 
         //print_r(dirname($_SERVER['SCRIPT_FILENAME']));
@@ -80,16 +80,29 @@ class Request
     }
     
     /**
-     * request::getPreferedLanguage()
-     * Get name of prefered language matched to list, if not matched return first language
-     * @param string $list if empty return first language, else name of prefered language first occured in array
+     * request::getPreferredLanguage()
+     * Get name of preferred language matched to list, if not matched return first language
+     * @param string $list if empty return first language, else name of preferred language first occured in array
      * @return string name of language
      */
-    public function getPreferedLanguage($list = "")
+    public function getPreferredLanguage($list = "")
     {
+        foreach ($this->languages as $lang => $value) {
+            foreach ($list as $key_list => $value_list) {
+                if (preg_match("/" . $lang . "(-[\w]{1,2})?/i", $value_list)) {
+//                    echo "znaleziony to $value_list";
+                    return $value_list;
+                }
+            }
+        }
+        return "";
+        /*
+        print_r($list);
         if (is_array($list)) {
             foreach ($list as $key => $value) {
-                if (isset($this->languages[$value])) {
+                echo $key . "<br />";
+                if (isset($this->languages[$key])) {
+                    echo $key;
                     return $value;
                 }
             }
@@ -97,8 +110,8 @@ class Request
             if (isset($this->languages[$list])) {
                 return $list;
             }
-        }
-        return current(array_keys($this->languages));
+        }*/
+        //return current(array_keys($this->languages));
     }
     
     /**

@@ -10,7 +10,7 @@ return [
                 "bla bla" => 2
             ],
             "View" => [
-                "templateDir" => ROOT_DIR . "templates/",
+                "templateDir" => APP_DIR . "templates/",
                 "compileDir" => APP_DIR . "cache/templates/"
             ],
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><form>
+    <name>contact</name>
+    <id></id>
+    <class>contact_form bootstrap</class>
+    <method>post</method>
+    <action>/</action>
+    <submit>Wyślij</submit>
+    <fields>
+                <field>
+            <name>nazwa</name>
+            <type>text</type>
+            <options>
+                                <required>1</required>
+                            <rule>alpha</rule>
+                            <class>new</class>
+                            <class_valid></class_valid>
+                            <class_error></class_error>
+                            <placeholder></placeholder>
+                            <label>asdfsd</label>
+                            <min-lenght>2</min-lenght>
+                            <max-lenght>30</max-lenght>
+                            <autocomplete>1</autocomplete>
+            
+            </options>
+            <placeholder></placeholder>
+            <label></label>
+            <required></required>
+            <rule></rule>
+        </field>
+                <field>
+            <name>nazwa2</name>
+            <type>text</type>
+            <options>
+                                <required></required>
+                            <rule>alpha</rule>
+                            <class></class>
+                            <class_valid></class_valid>
+                            <class_error></class_error>
+                            <placeholder></placeholder>
+                            <label></label>
+                            <plus>0</plus>
+                            <id>nowy</id>
+            
+            </options>
+            <placeholder></placeholder>
+            <label></label>
+            <required></required>
+            <rule></rule>
+        </field>
+        
+    </fields>
+</form>
